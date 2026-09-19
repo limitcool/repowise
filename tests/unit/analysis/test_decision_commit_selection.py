@@ -65,7 +65,7 @@ class _Provider:
         self._payload = payload
         self.prompts: list[str] = []
 
-    async def generate(self, system, prompt, **kwargs):  # noqa: ANN001
+    async def generate(self, system, prompt, **kwargs):
         self.prompts.append(prompt)
         return SimpleNamespace(content=json.dumps(self._payload))
 
