@@ -971,6 +971,9 @@ class DecisionRecord(Base):
     #: may answer "what governs this path". ``commit_footprint`` means the
     #: files are the file list of the commit the record was mined from: kept
     #: for provenance and staleness, skipped by every path-scoped surface.
+    #: ``commit_selected`` means the same miner asked the model which of that
+    #: commit's files the decision was about and stored the answer, so the
+    #: list is a claim and binds.
     #: See :func:`~repowise.core.analysis.decisions.scope.binds_to_paths`.
     scope_basis: Mapped[str] = mapped_column(
         String(32), nullable=False, default="", server_default=""

@@ -20,6 +20,7 @@ __all__ = [
     "SCOPE_BASIS_FOOTPRINT",
     "SCOPE_BASIS_PROXIMITY",
     "SCOPE_BASIS_REPOSITORY",
+    "SCOPE_BASIS_SELECTED",
     "SCOPE_BASIS_STATED",
     "bind_scope_files",
     "binds_to_paths",
@@ -27,6 +28,7 @@ __all__ = [
     "commit_scope_files",
     "derive_decision_scope",
     "resolve_module_nodes",
+    "selected_scope_files",
     "session_scope_basis",
 ]
 
@@ -68,6 +70,19 @@ SCOPE_BASIS_PROXIMITY = "session_proximity"
 #: everywhere and specific nowhere; :data:`AGREEMENT_SCOPE` is the same claim
 #: on the acceptance row.
 SCOPE_BASIS_REPOSITORY = "repository"
+
+#: The basis value marking a commit-derived scope the mining model chose file
+#: by file, rather than the commit's whole footprint. It binds, and the
+#: legacy backfill never touches it, so a selected scope survives the repair
+#: that stamps every pre-selector commit record as a footprint.
+#:
+#: Measured out of sample, on 43 selections over 29 records drawn from the dev
+#: store: 93% of selected files govern the file they are shown on and none are
+#: noise, against 27% governs and 18% noise for the same records' whole commit
+#: lists. Every one of the 20 records that had a genuinely governing file kept
+#: one; the 5 the model emptied had none to keep. Evidence in
+#: ``local-stash/decision-layer-research/capture-2026-09-19/RESULTS.md``.
+SCOPE_BASIS_SELECTED = "commit_selected"
 
 #: The basis value marking a scope a person stated: typed at the CLI, written
 #: into the manifest, or confirmed on review. It binds, like the empty default
@@ -122,6 +137,27 @@ def commit_scope_files(files: Sequence[str] | None) -> list[str]:
     rather than depending on the order git happened to list them in.
     """
     return sorted(_normalized(files))[:_MAX_FILES]
+
+
+def selected_scope_files(
+    chosen: Sequence[str] | None,
+    commit_files: Sequence[str] | None,
+) -> list[str]:
+    """The files a mining model picked, kept only where the commit touched them.
+
+    The model is shown the commit's file list and asked which of those files
+    the decision is about, so a path outside that list is a path it invented.
+    Intersecting rather than trusting is the whole of the validation: the
+    miner has no other way to tell a real path from a plausible one, and a
+    hallucinated path binds a decision to a file nobody ever changed.
+
+    An empty result is a correct and common answer -- roughly one record in
+    six, where the file the decision is about never reached the commit list at
+    all -- and it means the record binds to nothing rather than to the
+    commit's bystanders.
+    """
+    allowed = set(_normalized(commit_files))
+    return sorted(f for f in _normalized(chosen) if f in allowed)[:_MAX_FILES]
 
 
 def commit_scope_basis(files: Sequence[str] | None) -> str:

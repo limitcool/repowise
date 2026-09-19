@@ -29,7 +29,6 @@ from repowise.core.analysis.decisions.lifecycle import (
     currency_for_legacy_status,
 )
 from repowise.core.analysis.decisions.scope import (
-    MAX_GOVERNING_FILES,
     SCOPE_BASIS_FOOTPRINT,
     resolve_module_nodes,
     session_scope_basis,
@@ -427,8 +426,21 @@ async def backfill_scope_basis(session: AsyncSession, repository_id: str) -> int
     reason as the rest of this module: the rows predate the column, and only
     code that runs on an existing store can fix them.
 
+    **Every** legacy row is repaired now, not only the wide ones. The miners
+    ask the model which files each decision is about and store that under
+    :data:`SCOPE_BASIS_SELECTED`, so an empty basis on a commit-derived row
+    means the row predates the selector and its file list is a commit
+    footprint whatever its length. Measured out of sample, those lists are 27%
+    on topic with 18% outright noise, and narrowness does not rescue them: at
+    a five-file cutoff, 82% of the rows that still bound came from commits
+    that had touched more than five files, because the miner's list is an
+    inversion of per-file git metadata rather than the commit's diff. The
+    breadth rule was the best available signal until the model was asked
+    directly, and it is not needed now.
+
     Only rows with an **empty** basis are touched, which makes this idempotent
-    and leaves a scope somebody set by hand alone.
+    and leaves both a scope somebody set by hand and a scope the model chose
+    alone.
 
     The record keeps its files and loses its decision-graph links. Those are
     dropped here rather than left to the next ``bulk_upsert_decisions``: a
@@ -454,7 +466,7 @@ async def backfill_scope_basis(session: AsyncSession, repository_id: str) -> int
             files = json.loads(rec.affected_files_json or "[]")
         except ValueError:
             continue
-        if len(files) <= MAX_GOVERNING_FILES:
+        if not files:
             continue
         rec.scope_basis = SCOPE_BASIS_FOOTPRINT
         await session.execute(

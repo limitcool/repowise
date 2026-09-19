@@ -17,6 +17,7 @@ from sqlalchemy import select
 from repowise.core.analysis.decisions.scope import (
     MAX_GOVERNING_FILES,
     SCOPE_BASIS_FOOTPRINT,
+    SCOPE_BASIS_SELECTED,
     SCOPE_BASIS_STATED,
 )
 from repowise.core.analysis.decisions.semantic_match import DECISION_VECTOR_PREFIX
@@ -585,6 +586,80 @@ async def test_a_fold_that_stays_narrow_keeps_binding(async_session, repo_id):
     survivor = await async_session.get(DecisionRecord, canonical.id)
     assert survivor.scope_basis == ""
     assert await _links(async_session, canonical.id) == {"a.py", "b.py"}
+
+
+async def test_a_fold_of_two_selected_scopes_stays_selected(async_session, repo_id):
+    """Duplicates are restatements of one decision, so their union is a claim.
+
+    Both members chose their files file by file, so recomputing the basis by
+    breadth would demote a scope no breadth rule ever produced -- and the
+    union of two selections is wider than either, which is exactly when the
+    old recompute fires.
+    """
+    store = _store()
+    canonical, _duplicate = await _seed(
+        async_session,
+        store,
+        repo_id,
+        [
+            {
+                "title": "Keep @a",
+                "source": "pr",
+                "decision": "Body",
+                "files": _WIDE[:4],
+                "scope_basis": SCOPE_BASIS_SELECTED,
+            },
+            {
+                "title": "Drop @a",
+                "source": "comment",
+                "files": _WIDE[4:],
+                "scope_basis": SCOPE_BASIS_SELECTED,
+            },
+        ],
+    )
+    await apply_dedupe(async_session, repo_id, vector_store=store, tau=TAU)
+
+    survivor = await async_session.get(DecisionRecord, canonical.id)
+    assert len(json.loads(survivor.affected_files_json)) > MAX_GOVERNING_FILES
+    assert survivor.scope_basis == SCOPE_BASIS_SELECTED
+    assert await _links(async_session, canonical.id) == set(_WIDE)
+
+
+async def test_a_footprint_folding_into_a_selected_scope_demotes_it(
+    async_session, repo_id
+):
+    """One unchosen list in the union makes the union unchosen again.
+
+    The fold takes the union of the file lists, so a footprint folding in
+    hands the canonical files nobody ever chose. Keeping ``commit_selected``
+    there would launder them into a binding scope.
+    """
+    store = _store()
+    canonical, _duplicate = await _seed(
+        async_session,
+        store,
+        repo_id,
+        [
+            {
+                "title": "Keep @a",
+                "source": "pr",
+                "decision": "Body",
+                "files": ["kept.py"],
+                "scope_basis": SCOPE_BASIS_SELECTED,
+            },
+            {
+                "title": "Drop @a",
+                "source": "comment",
+                "files": _WIDE,
+                "scope_basis": SCOPE_BASIS_FOOTPRINT,
+            },
+        ],
+    )
+    await apply_dedupe(async_session, repo_id, vector_store=store, tau=TAU)
+
+    survivor = await async_session.get(DecisionRecord, canonical.id)
+    assert survivor.scope_basis == SCOPE_BASIS_FOOTPRINT
+    assert await _links(async_session, canonical.id) == set()
 
 
 async def test_a_fold_never_overwrites_a_stated_basis(async_session, repo_id):

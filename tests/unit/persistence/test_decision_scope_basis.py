@@ -21,6 +21,7 @@ from repowise.core.analysis.decisions.scope import (
     SCOPE_BASIS_FOOTPRINT,
     SCOPE_BASIS_PROXIMITY,
     SCOPE_BASIS_REPOSITORY,
+    SCOPE_BASIS_SELECTED,
     SCOPE_BASIS_STATED,
 )
 from repowise.core.persistence.crud import bulk_upsert_decisions, update_decision_metadata
@@ -149,15 +150,62 @@ async def test_backfill_marks_a_legacy_wide_pr_record_and_drops_its_file_links(
     assert await get_governing_decisions(async_session, repo.id, _BYSTANDER) == []
 
 
-async def test_backfill_leaves_a_narrow_commit_record_alone(async_session):
+async def test_backfill_repairs_a_narrow_legacy_commit_record_too(async_session):
+    """Narrowness does not make a legacy commit list a claim about files.
+
+    The miner never chose any of them. A four-file legacy scope is four files
+    of one commit, and out of sample it is no more on topic than a wide one:
+    at a five-file cutoff, 82% of the records that still bound came from
+    commits that had touched more than five files, because the stored list is
+    an inversion of per-file git metadata rather than the commit's diff.
+    """
     repo = await insert_repo(async_session)
     files = [f"pkg/m{i}.py" for i in range(4)]
     await bulk_upsert_decisions(
         async_session, repo.id, [_decision("Narrow", files=files)]
     )
 
+    assert await backfill_scope_basis(async_session, repo.id) == 1
+    assert await get_governing_decisions(async_session, repo.id, files[0]) == []
+
+
+async def test_backfill_leaves_a_selected_scope_alone(async_session):
+    """A scope the model chose file by file is not repaired into a footprint.
+
+    This is the whole point of the separate basis: the repair has to be able
+    to tell a pre-selector row from one the selector wrote, and both are
+    commit-derived with a short file list.
+    """
+    repo = await insert_repo(async_session)
+    await bulk_upsert_decisions(
+        async_session,
+        repo.id,
+        [
+            _decision(
+                "Chosen", files=[_MECHANISM], scope_basis=SCOPE_BASIS_SELECTED
+            )
+        ],
+    )
+
     assert await backfill_scope_basis(async_session, repo.id) == 0
-    assert await get_governing_decisions(async_session, repo.id, files[0]) != []
+    assert await get_governing_decisions(async_session, repo.id, _MECHANISM) != []
+
+
+async def test_backfill_leaves_a_scopeless_commit_record_alone(async_session):
+    """A record with no files has nothing to demote.
+
+    Stamping it a footprint would claim its empty list is a commit's, which is
+    the one thing it is not: the selector writes an empty list on purpose when
+    the decision is about none of the commit's files.
+    """
+    repo = await insert_repo(async_session)
+    ids = await bulk_upsert_decisions(
+        async_session, repo.id, [_decision("No files", files=[])]
+    )
+
+    assert await backfill_scope_basis(async_session, repo.id) == 0
+    rec = await async_session.get(DecisionRecord, ids[0])
+    assert rec.scope_basis == ""
 
 
 async def test_backfill_leaves_a_wide_record_from_another_source_alone(async_session):

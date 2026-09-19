@@ -61,6 +61,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from repowise.core.analysis.decisions.lifecycle import ARCHITECTURAL_KIND
 from repowise.core.analysis.decisions.provenance import rank_for_source
 from repowise.core.analysis.decisions.scope import (
+    SCOPE_BASIS_SELECTED,
     SCOPE_BASIS_STATED,
     binds_to_paths,
     commit_scope_basis,
@@ -330,10 +331,14 @@ async def apply_dedupe(
             name: set(_json_list(getattr(canonical, column))) for column, name in _UNION_FIELDS
         }
         done = FoldPlan(canonical_id=canonical.id, canonical_title=canonical.title)
+        # Whether every list going into the union was chosen file by file.
+        # One footprint among them makes the union a footprint again.
+        all_selected = canonical.scope_basis == SCOPE_BASIS_SELECTED
         for folded_id, title, score in cluster.folded:
             folded = await session.get(DecisionRecord, folded_id)
             if folded is None or folded_id not in eligible:
                 continue
+            all_selected = all_selected and folded.scope_basis == SCOPE_BASIS_SELECTED
             for column, name in _UNION_FIELDS:
                 union[name] |= set(_json_list(getattr(folded, column)))
             # The checkable noun wins a fold. An agreement that absorbs a
@@ -357,11 +362,19 @@ async def apply_dedupe(
         # it rather than inherited: a footprint folding into a narrow
         # canonical would otherwise hand it the wide list under a binding
         # basis, on a record whose source the backfill does not repair.
-        canonical.scope_basis = (
-            SCOPE_BASIS_STATED
-            if canonical.scope_basis == SCOPE_BASIS_STATED
-            else commit_scope_basis(sorted(union["files"]))
-        )
+        #
+        # A fold of records that each chose their own files is the exception.
+        # Duplicates are restatements of one decision, so the union of their
+        # selections is still a selection, and recomputing it by breadth would
+        # demote a scope no breadth rule ever produced. That holds only while
+        # every member chose: mixing one footprint in makes the union a
+        # footprint again, which is what ``all_selected`` tracks.
+        if canonical.scope_basis == SCOPE_BASIS_STATED:
+            pass
+        elif all_selected:
+            canonical.scope_basis = SCOPE_BASIS_SELECTED
+        else:
+            canonical.scope_basis = commit_scope_basis(sorted(union["files"]))
         # Sync replaces rather than accretes, so it must see the union.
         binds = binds_to_paths(canonical.scope_basis)
         await sync_decision_node_links(
