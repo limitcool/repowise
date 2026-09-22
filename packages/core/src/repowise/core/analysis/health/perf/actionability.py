@@ -9,7 +9,10 @@ Three separate questions live here and must not collapse into one label:
 * evidence confidence, :func:`provenance_confidence`, asks how reliably the
   call path was resolved;
 * fix safety, :attr:`PerformanceFix.safety`, asks how strongly the specific
-  transformation is proven;
+  transformation is proven -- of the *transformation*, not of the runtime it
+  would run in. A strategy that spends a shared resource has a second question
+  no dataflow fact answers, and it carries a prerequisite rather than the
+  stronger word;
 * actionability, :func:`actionability`, asks what to do with the group now, and
   demotes a proven strategy whose evidence is weak.
 """
@@ -33,6 +36,12 @@ FixStrategy = Literal[
 
 BATCHABLE_MARKERS = frozenset({"io_in_loop", "nested_loop_with_io"})
 BATCHABLE_BOUNDARIES = frozenset({"db", "network"})
+
+#: Boundaries where firing N awaits at once spends a shared, exhaustible
+#: resource: a connection pool, a rate limit, a statement timeout. Dataflow
+#: independence says the iterations do not need each other. It says nothing
+#: about whether the pool can serve them together.
+CONCURRENCY_SENSITIVE_BOUNDARIES = frozenset({"db", "network"})
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,6 +118,22 @@ def assess_fix(
     if marker == "serial_await_in_loop":
         if not all(detail.get("dataflow_verified") for detail in details):
             return FixAssessment(None, ("loop_carried_dependence_proof",))
+        if boundary in CONCURRENCY_SENSITIVE_BOUNDARIES:
+            # Dataflow settles one of the two questions this strategy raises.
+            # "Proven" claimed both. Fanning out N awaits at a pool-backed
+            # boundary can exhaust the pool or trip a statement timeout, and no
+            # fact in this group speaks to that, so the module's own rule
+            # applies: name the fact that would settle it rather than offer the
+            # weaker plan under a stronger word.
+            return FixAssessment(
+                PerformanceFix(
+                    "parallelize_independent_awaits",
+                    "advisory",
+                    "Iteration independence is proven; the concurrency the fan-out "
+                    "would create is not bounded by anything this group can see.",
+                ),
+                ("bounded_concurrency",),
+            )
         return FixAssessment(
             PerformanceFix(
                 "parallelize_independent_awaits",
