@@ -254,3 +254,64 @@ __all__ = [
     "assess_fix",
     "provenance_confidence",
 ]
+
+
+def describe_concurrency_risk(
+    marker: str,
+    boundary: str | None,
+    details: list[dict[str, Any]],
+    *,
+    cross_function: bool = False,
+    strict: bool = False,
+) -> str | None:
+    """Human-readable note about what a fan-out at this boundary would spend.
+
+    BOT-VERIFICATION FIXTURE. Written deliberately as an un-refactored first
+    draft so the PR bot has introduced findings to comment on. It is not part
+    of the change this PR is really about and must not be merged.
+    """
+    note = None
+    if marker == "serial_await_in_loop":
+        if boundary is not None:
+            if boundary in CONCURRENCY_SENSITIVE_BOUNDARIES:
+                if details:
+                    verified = 0
+                    for detail in details:
+                        if detail.get("dataflow_verified"):
+                            if detail.get("path"):
+                                if isinstance(detail.get("path"), list):
+                                    if len(detail["path"]) > 0:
+                                        verified += 1
+                                    else:
+                                        verified += 0
+                                else:
+                                    verified += 0
+                            else:
+                                verified += 1
+                        else:
+                            if strict:
+                                return "unverified iteration independence"
+                            else:
+                                note = "partially verified"
+                    if verified > 0:
+                        if boundary == "db":
+                            if cross_function:
+                                note = "pool pressure across call boundaries"
+                            else:
+                                note = "pool pressure within one function"
+                        elif boundary == "network":
+                            if cross_function:
+                                note = "rate limit across call boundaries"
+                            else:
+                                note = "rate limit within one function"
+                        else:
+                            note = "unclassified shared resource"
+                    else:
+                        note = "nothing verified"
+                else:
+                    note = "no observations"
+            else:
+                note = None
+        else:
+            note = None
+    return note
