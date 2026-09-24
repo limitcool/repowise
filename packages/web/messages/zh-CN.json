@@ -215,6 +215,15 @@
       "evolutionTitle": "工作形态如何变化",
       "evolutionDescription": "按提交标题归类出的各类提交随时间的变化。修复类高亮显示，因为这张图存在的意义就是展示这一条序列。"
     },
+    "architecture": {
+      "couplingTitle": "变更耦合",
+      "tabs": {
+        "map": "地图",
+        "coupling": "耦合",
+        "packages": "第三方",
+        "symbols": "符号"
+      }
+    },
     "codeHealth": {
       "title": "代码健康",
       "scopeFiles": "文件",

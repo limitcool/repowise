@@ -215,6 +215,15 @@
       "evolutionTitle": "How the work changed shape",
       "evolutionDescription": "Commit categories over time, read off the subject line. Fixes carry the accent because that is the series this chart exists to show."
     },
+    "architecture": {
+      "couplingTitle": "Change coupling",
+      "tabs": {
+        "map": "Map",
+        "coupling": "Coupling",
+        "packages": "Third-party",
+        "symbols": "Symbols"
+      }
+    },
     "codeHealth": {
       "title": "Code health",
       "scopeFiles": "Files",
