@@ -1,0 +1,48 @@
+name: zh image
+
+# 在 GitHub 的 runner 上构建中文分支镜像并推 GHCR —— 本地/tohka 不再跑构建。
+# 产物：ghcr.io/limitcool/repowise:zh-<full-sha> 与 :zh
+# 生产侧只需 pull（compose 改为 image: 引用），pin 的 sha 与镜像 tag 一一对应。
+on:
+  push:
+    branches: [zh-i18n]
+    paths:
+      - 'packages/web/**'
+      - 'packages/core/**'
+      - 'packages/server/**'
+      - 'packages/cli/**'
+      - 'pyproject.toml'
+      - 'docker/**'
+      - 'Dockerfile.zh'
+      - '.github/workflows/zh-image.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.zh
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/repowise:zh-${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/repowise:zh
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
