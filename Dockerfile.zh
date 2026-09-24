@@ -1,0 +1,88 @@
+# =============================================================================
+# repowise zh 分支镜像 —— 在 GitHub Actions 里构建（上游代码由 checkout 提供）
+# =============================================================================
+# 与 komodo-resources/compose/tohka/repowise/Dockerfile 逐段对齐，唯一差异：
+#   源码不再在构建期从 GitHub clone，而是用 Actions 的 checkout 结果（COPY . /app）。
+#   因此本文件顶部没有 source 阶段。
+#
+# 保留的四点封装差异（勿丢）：
+#   1. 不设置 NEXT_PUBLIC_REPOWISE_API_URL —— 上游设了 http://localhost:7337，
+#      该值被 next build 内联进浏览器 JS，经反代域名打开时浏览器会去请求访问者
+#      自己的 localhost:7337 ⇒ 白屏。不设 ⇒ 前端 BASE_URL 为空 ⇒ 走同源 /api/*。
+#   2. 依赖源可覆盖（NPM_REGISTRY / PIP_INDEX_URL），Actions 上默认走官方源。
+#   3. 构建期 Node 堆上限可调（NODE_MAX_OLD_SPACE）；GitHub runner 内存宽裕，默认 4096。
+#   4. entrypoint.sh 等运行时文件原样取自上游。
+#
+# 构建：GitHub Actions（.github/workflows/zh-image.yml）→ 推 ghcr.io/limitcool/repowise
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Stage 1: 前端（对齐上游 frontend-builder）
+# ---------------------------------------------------------------------------
+FROM node:20-bookworm-slim AS frontend-builder
+
+ARG NODE_MAX_OLD_SPACE=4096
+ENV NODE_OPTIONS=--max-old-space-size=${NODE_MAX_OLD_SPACE}
+
+COPY . /app
+WORKDIR /app/packages/web
+
+ARG NPM_REGISTRY=https://registry.npmjs.org
+ENV NPM_CONFIG_REGISTRY=${NPM_REGISTRY}
+ENV NPM_CONFIG_FETCH_RETRIES=5
+ENV NPM_CONFIG_FETCH_RETRY_FACTOR=3
+ENV NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000
+ENV NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=180000
+# 本目录是 npm workspace 子包，npm 10 下 `npm config set` 会 ENOWORKSPACES 失败，
+# 故一律用 ENV(NPM_CONFIG_*)。
+RUN npm install --production=false --no-audit --no-fund
+
+ENV NEXT_TELEMETRY_DISABLED=1
+# ⚠️ 刻意不设置 NEXT_PUBLIC_REPOWISE_API_URL（见文件头差异 1）
+RUN npm run build
+
+# ---------------------------------------------------------------------------
+# Stage 2: Python 后端 + 前端运行时（对齐上游 runtime）
+# ---------------------------------------------------------------------------
+FROM python:3.12-slim AS runtime
+
+RUN apt-get update && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=frontend-builder /usr/local/bin/node /usr/local/bin/node
+COPY --from=frontend-builder /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+
+WORKDIR /app
+
+COPY --from=frontend-builder /app/pyproject.toml /app/README.md /app/LICENSE /app/MANIFEST.in ./
+COPY --from=frontend-builder /app/packages/core/ packages/core/
+COPY --from=frontend-builder /app/packages/cli/ packages/cli/
+COPY --from=frontend-builder /app/packages/server/ packages/server/
+
+ARG PIP_INDEX_URL=https://pypi.org/simple/
+RUN pip install --no-cache-dir --index-url "${PIP_INDEX_URL}" --retries 5 --timeout 60 ".[all]"
+
+COPY --from=frontend-builder /app/packages/web/.next/standalone /app/web
+COPY --from=frontend-builder /app/packages/web/.next/static /app/web/packages/web/.next/static
+COPY --from=frontend-builder /app/packages/web/public /app/web/packages/web/public
+
+RUN mkdir -p /data
+VOLUME /data
+
+ENV REPOWISE_DB_URL=sqlite+aiosqlite:////data/wiki.db
+ENV REPOWISE_EMBEDDER=mock
+ENV PORT_BACKEND=7337
+ENV PORT_FRONTEND=3000
+ENV HOSTNAME=0.0.0.0
+
+EXPOSE 7337 3000
+
+COPY --from=frontend-builder /app/docker/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+RUN groupadd -r repowise && useradd -r -g repowise -d /app -s /sbin/nologin repowise \
+    && chown -R repowise:repowise /app /data
+USER repowise
+
+ENTRYPOINT ["/app/entrypoint.sh"]
