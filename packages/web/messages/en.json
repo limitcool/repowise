@@ -171,7 +171,17 @@
     "repositoriesTitle": "Repositories",
     "repositoriesDescription": "Ordered by what needs attention first — never indexed, then behind their working tree, then by health score — rather than by when they last changed.",
     "recentActivity": "Recent activity",
-    "recentActivityDescription": "The last indexing and sync runs across every repository."
+    "recentActivityDescription": "The last indexing and sync runs across every repository.",
+    "quickActions.sync": "Sync",
+    "quickActions.resync": "Full resync",
+    "quickActions.deadCode": "Dead code scan",
+    "quickActions.actionFailed": "{action} failed",
+    "quickActions.deadCodeFinished": "Dead code scan finished",
+    "quickActions.deadCodeFailed": "Dead code scan failed",
+    "quickActions.syncStarted": "Sync started{name}",
+    "quickActions.resyncStarted": "Full resync started{name}",
+    "quickActions.deadCodeStarted": "Dead code analysis started",
+    "quickActions.inFlight": "Showing progress for the in-flight job. Cancel it from the panel to start a new one."
   },
   "attention": {
     "unindexedOne": "{name} has not been indexed yet.",
@@ -488,5 +498,99 @@
     "detail.zoomIn": "Zoom in",
     "detail.readModule": "Read the module page",
     "detail.openFile": "Open file page"
+  },
+  "architecture": {
+    "dependencies.title": "External dependencies",
+    "dependencies.description": "Declared third-party packages, joined to persisted import-graph evidence. Select a package to inspect declaration counts, versions, and importing files.",
+    "dependencies.includeAuxiliary": "Include auxiliary declarations",
+    "dependencies.loadFailed": "Couldn't load external dependencies",
+    "dependencies.loading": "Loading external dependencies",
+    "dependencies.auxiliaryExcluded": "{count} declarations from auxiliary directories excluded",
+    "dependencies.showingAll": "Showing primary and auxiliary directories present in this indexed checkout",
+    "graph.communitiesDescription": "Files that depend on each other more than on the rest of the repo, detected automatically. Circle size is how much code a group holds, and the nearer the centre, the nearer an entry point. Double-click a group to see the files inside it and what they depend on.",
+    "graph.filesDescription": "Every file, grouped into the communities it depends on most, with a band for each strong link between communities. Hover or select a file to see exactly what it imports and what imports it."
+  },
+  "chat": {
+    "noProvider": "No chat provider is configured. Add an API key in <link>settings</link> to start asking questions.",
+    "noProviderShort": "No chat provider is configured. Add an API key in <link>settings</link>."
+  },
+  "codeHealth": {
+    "hotspots.title": "Hotspots",
+    "hotspots.description": "Ranked by change frequency and prior bug fixes, mined from full git history. The danger is not churn on its own. It is a file that changes constantly and only one person understands.",
+    "hotspots.commitHistory": "Commit history",
+    "hotspots.loadFailed": "Couldn't load hotspots. Run a sync to mine git history for this repo.",
+    "hotspots.promptTitle": "AI stabilization prompt",
+    "hotspots.promptDescription": "A ready-to-paste prompt that has your AI agent diagnose why this file churns and propose changes that make it cheaper to maintain."
+  },
+  "commits": {
+    "detail.title": "Review this commit",
+    "detail.promptLabel": "AI review prompt",
+    "detail.promptTitle": "AI commit review",
+    "detail.promptDescription": "A ready-to-paste prompt that has your AI agent review this commit's change-risk, flag what to scrutinize, and suggest reviewers."
+  },
+  "coupling": {
+    "loadFailed": "Couldn't load change coupling"
+  },
+  "coverage": {
+    "jobRunning": "A generation job is already running. Wait for it to finish.",
+    "regenStarted": "Regeneration started",
+    "regenFailed": "Couldn't start regeneration"
+  },
+  "decisions": {
+    "add.trigger": "Record a decision",
+    "add.title": "Record a decision",
+    "add.description": "Something the team has settled on. Name the files it governs and it is recorded as confirmed, because you are the person confirming it.",
+    "capture.saveFailedWithMessage": "Couldn't save capture settings: {message}",
+    "capture.saveFailed": "Couldn't save capture settings.",
+    "review.accepted": "Accepted. It governs the files it names.",
+    "review.dismissed": "Dismissed. Reindexing will not propose it again.",
+    "review.acceptFailed": "Couldn't accept: {message}",
+    "review.dismissFailed": "Couldn't dismiss: {message}",
+    "review.actionFailed": "The review action failed.",
+    "review.previous": "Previous",
+    "review.next": "Next"
+  },
+  "files": {
+    "health.findingMarked": "Finding marked {status}",
+    "health.statusFailed": "Couldn't update finding status",
+    "explorer.loadFailed": "Couldn't load the file index for this repository."
+  },
+  "health": {
+    "findingMarked": "Finding marked {status}",
+    "findingStatusFailed": "Couldn't update finding status"
+  },
+  "jobs": {
+    "completed": "Documentation updated{name}",
+    "pagesGenerated": "{count} pages generated",
+    "failed": "Generation failed",
+    "unknownError": "Unknown error",
+    "cancelled": "Job cancelled",
+    "cancelledDescription": "The pipeline was stopped before completion.",
+    "cancelFailed": "Couldn't cancel job",
+    "progressCount": "{completed}/{total} pages"
+  },
+  "overview": {
+    "ask.placeholder": "How does the incremental pipeline decide what to re-index?",
+    "ask.suggestion1": "How does authentication work?",
+    "ask.suggestion2": "Where is the retry logic?",
+    "ask.suggestion3": "Why is this module structured this way?",
+    "ask.label": "Ask a question about this codebase",
+    "ask.submit": "Ask"
+  },
+  "risk": {
+    "analysisTimeout": "Analysis is taking longer than expected. Reload to see the results.",
+    "syncStarted": "Sync started — findings refresh when it completes",
+    "syncFailed": "Couldn't start a sync",
+    "description": "Secrets, dangerous patterns, and policy hits detected while indexing. Findings refresh on every sync.",
+    "loadFailed": "Couldn't load findings",
+    "loadFailedBody": "The security endpoint returned an error. Try re-running ingestion.",
+    "allFindings": "All findings",
+    "findingsCount": "{count} findings",
+    "promptTitle": "AI fix prompt",
+    "promptDescription": "A ready-to-paste prompt that walks your AI agent through confirming and remediating this security finding."
+  },
+  "symbols": {
+    "clearFileFilter": "Clear file filter",
+    "fileOnly": "showing symbols in this file only"
   }
 }

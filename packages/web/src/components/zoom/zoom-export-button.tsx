@@ -87,7 +87,7 @@ export function ZoomExportButton({
         setWorking(false);
       }
     },
-    [repoId],
+    [repoId, t],
   );
 
   return (

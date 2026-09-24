@@ -82,7 +82,7 @@ export function FirstIndexExperience({ repoId, repoName }: Props) {
     } finally {
       setStarting(false);
     }
-  }, [repoId]);
+  }, [repoId, t]);
 
   const handleJobDone = useCallback(async () => {
     if (!jobId) return;

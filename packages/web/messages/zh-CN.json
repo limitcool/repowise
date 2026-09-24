@@ -171,7 +171,17 @@
     "repositoriesTitle": "代码仓库",
     "repositoriesDescription": "按需要优先处理的程度排序 —— 先是从未索引的，其次是落后于工作区的，最后按健康分排序 —— 而不是按最近变更时间。",
     "recentActivity": "最近活动",
-    "recentActivityDescription": "所有代码仓库最近的索引与同步运行记录。"
+    "recentActivityDescription": "所有代码仓库最近的索引与同步运行记录。",
+    "quickActions.sync": "同步",
+    "quickActions.resync": "全量重新同步",
+    "quickActions.deadCode": "死代码扫描",
+    "quickActions.actionFailed": "{action} 失败",
+    "quickActions.deadCodeFinished": "死代码扫描已完成",
+    "quickActions.deadCodeFailed": "死代码扫描失败",
+    "quickActions.syncStarted": "同步已开始{name}",
+    "quickActions.resyncStarted": "全量重新同步已开始{name}",
+    "quickActions.deadCodeStarted": "死代码分析已开始",
+    "quickActions.inFlight": "正在显示进行中任务的进度。要启动新任务，请先在面板中取消它。"
   },
   "attention": {
     "unindexedOne": "{name} 尚未索引。",
@@ -488,5 +498,99 @@
     "detail.zoomIn": "放大查看",
     "detail.readModule": "阅读模块页面",
     "detail.openFile": "打开文件页面"
+  },
+  "architecture": {
+    "dependencies.title": "外部依赖",
+    "dependencies.description": "已声明的第三方包，与持久化的导入图证据相结合。选中一个包即可查看声明次数、版本以及导入它的文件。",
+    "dependencies.includeAuxiliary": "包含辅助目录中的声明",
+    "dependencies.loadFailed": "无法加载外部依赖",
+    "dependencies.loading": "正在加载外部依赖",
+    "dependencies.auxiliaryExcluded": "已排除 {count} 条来自辅助目录的声明",
+    "dependencies.showingAll": "显示此次索引检出中出现的全部主目录与辅助目录",
+    "graph.communitiesDescription": "相互依赖程度高于对代码仓库其余部分的文件组，自动检出。圆的大小表示该组包含的代码量，越靠近中心越接近入口点。双击一个组即可查看其中的文件以及它们依赖什么。",
+    "graph.filesDescription": "每个文件按它最依赖的社区分组，社区之间的每条强连接用一条带表示。把鼠标悬停或选中某个文件，即可看到它导入了什么、又被谁导入。"
+  },
+  "chat": {
+    "noProvider": "尚未配置对话提供商。请先在<link>设置</link>中添加 API 密钥，然后就可以开始提问了。",
+    "noProviderShort": "尚未配置对话提供商。请先在<link>设置</link>中添加 API 密钥。"
+  },
+  "codeHealth": {
+    "hotspots.title": "热点",
+    "hotspots.description": "按变更频率与历史缺陷修复排序，从完整 git 历史中挖掘。危险的不只是频繁变更，而是那种频繁改动却只有一个人看得懂的文件。",
+    "hotspots.commitHistory": "提交历史",
+    "hotspots.loadFailed": "无法加载热点。请运行一次同步，为该代码仓库挖掘 git 历史。",
+    "hotspots.promptTitle": "AI 稳定化提示词",
+    "hotspots.promptDescription": "一段可直接粘贴的提示词，让 AI 智能体诊断该文件为何频繁变更，并提出降低维护成本的改动建议。"
+  },
+  "commits": {
+    "detail.title": "审阅这次提交",
+    "detail.promptLabel": "AI 审阅提示词",
+    "detail.promptTitle": "AI 提交审阅",
+    "detail.promptDescription": "一段可直接粘贴的提示词，让 AI 智能体审阅这次提交的变更风险、标出需要重点核查之处，并推荐审阅人。"
+  },
+  "coupling": {
+    "loadFailed": "无法加载变更耦合"
+  },
+  "coverage": {
+    "jobRunning": "已有生成任务正在运行，请等它完成。",
+    "regenStarted": "重新生成已开始",
+    "regenFailed": "无法启动重新生成"
+  },
+  "decisions": {
+    "add.trigger": "记录一条决策",
+    "add.title": "记录一条决策",
+    "add.description": "团队已经定下来的事。写明它约束哪些文件，它就会被记为已确认，因为确认的人就是你。",
+    "capture.saveFailedWithMessage": "保存采集设置失败：{message}",
+    "capture.saveFailed": "保存采集设置失败。",
+    "review.accepted": "已接受。它将约束其指定的文件。",
+    "review.dismissed": "已忽略。重新索引不会再提出它。",
+    "review.acceptFailed": "接受失败：{message}",
+    "review.dismissFailed": "忽略失败：{message}",
+    "review.actionFailed": "审阅操作失败。",
+    "review.previous": "上一页",
+    "review.next": "下一页"
+  },
+  "files": {
+    "health.findingMarked": "发现项已标记为 {status}",
+    "health.statusFailed": "无法更新发现项状态",
+    "explorer.loadFailed": "无法加载该代码仓库的文件索引。"
+  },
+  "health": {
+    "findingMarked": "发现项已标记为 {status}",
+    "findingStatusFailed": "无法更新发现项状态"
+  },
+  "jobs": {
+    "completed": "文档已更新{name}",
+    "pagesGenerated": "已生成 {count} 个页面",
+    "failed": "生成失败",
+    "unknownError": "未知错误",
+    "cancelled": "任务已取消",
+    "cancelledDescription": "流水线在完成之前就被停止了。",
+    "cancelFailed": "无法取消任务",
+    "progressCount": "{completed}/{total} 个页面"
+  },
+  "overview": {
+    "ask.placeholder": "增量流水线如何决定重新索引哪些内容？",
+    "ask.suggestion1": "认证是怎么工作的？",
+    "ask.suggestion2": "重试逻辑在哪里？",
+    "ask.suggestion3": "这个模块为什么这样组织？",
+    "ask.label": "就这个代码库提问",
+    "ask.submit": "提问"
+  },
+  "risk": {
+    "analysisTimeout": "分析耗时超出预期。请重新加载以查看结果。",
+    "syncStarted": "同步已开始 —— 完成后发现项会刷新",
+    "syncFailed": "无法启动同步",
+    "description": "索引过程中检出的密钥、危险模式与策略命中。每次同步后发现项都会刷新。",
+    "loadFailed": "无法加载发现项",
+    "loadFailedBody": "安全接口返回了错误。请尝试重新运行数据摄取。",
+    "allFindings": "全部发现项",
+    "findingsCount": "{count} 条发现项",
+    "promptTitle": "AI 修复提示词",
+    "promptDescription": "一段可直接粘贴的提示词，引导 AI 智能体确认并修复这条安全发现项。"
+  },
+  "symbols": {
+    "clearFileFilter": "清除文件筛选",
+    "fileOnly": "仅显示该文件中的符号"
   }
 }
