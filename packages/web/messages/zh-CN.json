@@ -893,5 +893,12 @@
     "ribbon.unmatchedHint": "没有匹配到提供方的消费方契约：缺失、属于第三方主机，或位于同一服务内。",
     "lede.cycleDepend": "{names} 互相依赖",
     "lede.cycleTail": "，形成一个依赖循环：其中任何一个都无法单独变更契约、构建或部署。"
+  },
+  "loading": {
+    "repo": "正在加载",
+    "architecture": "正在加载架构",
+    "commits": "正在加载提交",
+    "coverage": "正在加载覆盖率",
+    "knowledgeGraph": "正在加载知识图谱"
   }
 }

@@ -893,5 +893,12 @@
     "ribbon.unmatchedHint": "Consumer contracts that matched no provider: missing, a third-party host, or inside the same service.",
     "lede.cycleDepend": "{names} depend on each other",
     "lede.cycleTail": ", a dependency cycle: none of them can change a contract, build or deploy alone."
+  },
+  "loading": {
+    "repo": "Loading",
+    "architecture": "Loading architecture",
+    "commits": "Loading commits",
+    "coverage": "Loading coverage",
+    "knowledgeGraph": "Loading knowledge graph"
   }
 }
