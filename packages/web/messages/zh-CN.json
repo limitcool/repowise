@@ -274,7 +274,7 @@
       "tabStructural": "结构性",
       "sectionTitleAll": "全部重构机会",
       "sectionTitleStructural": "结构性重构机会",
-      "sectionTitleFiltered": "{type}类机会"
+      "sectionTitleFiltered": "{type} 类机会"
     },
     "decisions": {
       "title": "决策",
