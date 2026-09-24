@@ -164,18 +164,16 @@ export default async function DecisionsPage({ params }: Props) {
           what it counts and the pairs stay visible in their lane, where they
           can be superseded. */}
       <PageLede
-        label={measuredByLane ? "Accepted" : "Confirmed"}
+        label={measuredByLane ? t("ledeAccepted") : t("ledeConfirmed")}
         value={accepted.toLocaleString()}
         unit={denominator}
         layout="beside"
       >
         {empty ? (
           <p>
-            Decisions land here as the indexer mines them from pull requests,
-            commit messages, code comments and your own sessions, and as you
-            record them yourself — below, or with{" "}
-            <code>repowise decision add</code>. Each one keeps the quote it was
-            drawn from and the files it governs.
+            {t.rich("ledeEmpty", {
+              code: (chunks) => <code>{chunks}</code>,
+            })}
           </p>
         ) : accepted === 0 ? (
           // A repository with records and no accepted one is not an empty
@@ -186,39 +184,14 @@ export default async function DecisionsPage({ params }: Props) {
           // column called active turns out to be something nobody accepted, so
           // this is the state most likely to be read by somebody surprised.
           <>
-            <p>
-              Nothing here governs yet. A record governs only once somebody
-              accepts it, naming the files it covers and why — mining it,
-              seeing it recur, and scoring it confident all stop short of that.
-            </p>
-            <p>
-              {proposed.toLocaleString()} candidate
-              {proposed === 1 ? " is" : "s are"} waiting below, and{" "}
-              {proposed === 1 ? "it is" : "they are"} all still here: nothing
-              was deleted and every id still resolves. If this page used to
-              show confirmed decisions, those are the records now in
-              Candidates. Accepting one takes a click and changes no code.
-            </p>
+            <p>{t("ledeNoGovernance")}</p>
+            <p>{t("ledeCandidates", { count: proposed })}</p>
           </>
         ) : (
           <>
-            <p>
-              {accepted.toLocaleString()} record
-              {accepted === 1 ? " is" : "s are"} accepted: somebody read{" "}
-              {accepted === 1 ? "it" : "them"} and marked{" "}
-              {accepted === 1 ? "it" : "them"} as something the team stands
-              behind, which is what makes {accepted === 1 ? "it" : "them"} worth
-              quoting back to an agent later.
-            </p>
+            <p>{t("ledeAcceptedRecords", { count: accepted })}</p>
             {proposed > 0 && (
-              <p>
-                {proposed.toLocaleString()} more are candidates the indexer
-                mined and nobody has accepted. Until one is accepted it is a
-                guess about your codebase rather than a rule for it, and no
-                agent is ever given one. Open the Candidates lane below to work
-                through them; accepting or dismissing one takes a click and
-                changes no code.
-              </p>
+              <p>{t("ledeAcceptedMore", { count: proposed })}</p>
             )}
           </>
         )}
