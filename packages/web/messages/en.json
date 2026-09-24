@@ -326,7 +326,22 @@
     },
     "repoSettings": {
       "title": "Settings",
-      "description": "Indexing, model keys and health for {repo}. Server, webhook and editor configuration are shared across repositories."
+      "description": "Indexing, model keys and health for {repo}. Server, webhook and editor configuration are shared across repositories.",
+      "generalTitle": "General",
+      "generalDescription": "Where this repository lives and which branch is indexed.",
+      "syncTitle": "Sync and indexing",
+      "syncDescription": "Pull recent commits into the existing index, or rebuild it from scratch.",
+      "providerTitle": "AI provider",
+      "providerDescription": "A model key lets this repository's documentation be written with AI. Keys are stored with the repository and used by generation from the UI or the CLI.",
+      "captureTitle": "Decision capture",
+      "captureDescription": "What mines architectural decisions from this repository, and whether any of it may send prose to your configured model. Capture only ever produces candidates: nothing here can accept a decision on your behalf.",
+      "refactoringTitle": "Refactoring code generation",
+      "refactoringDescription": "Opt in to turning refactoring plans into reviewable diffs with your configured model.",
+      "healthTitle": "Index health",
+      "healthDescription": "Per-population drift: wiki pages against page vectors, and decision records against decision vectors. A gap means search is answering from a stale set.",
+      "deleteTitle": "Delete this repository",
+      "deleteDescription": "Removes the index and everything generated from it — pages, symbols, decisions and history. Your source files are untouched. This cannot be undone.",
+      "footer": "Server connection, webhooks, model defaults and MCP configuration are in <link>global settings</link>."
     },
     "globalSettings": {
       "title": "Settings",

@@ -326,7 +326,22 @@
     },
     "repoSettings": {
       "title": "设置",
-      "description": "{repo} 的索引、模型密钥与健康度。服务器、Webhook 与编辑器配置在所有代码仓库之间共享。"
+      "description": "{repo} 的索引、模型密钥与健康度。服务器、webhook 与编辑器配置由所有代码仓库共享。",
+      "generalTitle": "通用",
+      "generalDescription": "这个代码仓库所在的位置，以及索引的是哪个分支。",
+      "syncTitle": "同步与索引",
+      "syncDescription": "把最近的提交拉进现有索引，或者从零重建索引。",
+      "providerTitle": "AI 提供商",
+      "providerDescription": "有了模型密钥，这个代码仓库的文档就可以用 AI 撰写。密钥随仓库一起保存，供界面或 CLI 触发的生成使用。",
+      "captureTitle": "决策采集",
+      "captureDescription": "从哪些来源为这个代码仓库挖掘架构决策，以及其中是否有任何环节会把正文发送给你配置的模型。采集只会产生候选：这里没有任何操作能替你接受一条决策。",
+      "refactoringTitle": "重构代码生成",
+      "refactoringDescription": "选择是否用你配置的模型把重构计划变成可评审的差异。",
+      "healthTitle": "索引健康",
+      "healthDescription": "按群体对比漂移：wiki 页面与其页面向量、决策记录与其决策向量。出现缺口意味着搜索正在用过期的集合作答。",
+      "deleteTitle": "删除这个代码仓库",
+      "deleteDescription": "删除索引以及由它生成的一切——页面、符号、决策和历史。你的源文件不会被改动。此操作无法撤销。",
+      "footer": "服务器连接、webhook、模型默认值和 MCP 配置都在 <link>全局设置</link> 里。"
     },
     "globalSettings": {
       "title": "设置",
