@@ -104,8 +104,8 @@ export default async function CommitsPage({
       {trend && trend.agent_commits > 0 && <AgentTrendStrip trend={trend} />}
 
       <OverviewSection
-        title="Review queue"
-        description="Newest first by default. Priority is a tercile of this repo's own distribution, so sorting by it shows only the top third — the filters narrow the whole repository, not the page."
+        title={t("reviewQueueTitle")}
+        description={t("reviewQueueDescription")}
         action={<CredibilityInfoButton />}
       >
         <CommitQueue
@@ -125,11 +125,11 @@ export default async function CommitsPage({
       </OverviewSection>
 
       <OverviewSection
-        title="How the score behaves here"
-        description="Two views of the same model: where the cuts fall, and what commit shape lands you above them."
+        title={t("scoreBehaviourTitle")}
+        description={t("scoreBehaviourDescription")}
         action={
           <SectionLink href={`${base}/code-health?tab=triage`} LinkComponent={Link}>
-            Change risk
+            {t("changeRisk")}
           </SectionLink>
         }
       >

@@ -212,6 +212,11 @@
       "description": "每个提交都针对该仓库自身的历史评定了变更风险，因此「偏高」是相对本仓库偏高，而不是套用某条全局曲线。",
       "emptyDescription": "每个提交都针对该仓库自身的历史评定了变更风险。",
       "emptyHint": "每次完整索引时会采集逐提交的变更风险。跑一次同步，评审队列随后就会填充。",
+      "reviewQueueTitle": "评审队列",
+      "reviewQueueDescription": "默认按最新排序。优先级取自本仓库自身分布的三分位，因此按它排序只会显示前三分之一——筛选条件收窄的是整个仓库，而不是当前这一页。",
+      "scoreBehaviourTitle": "分数在这个仓库里的表现",
+      "scoreBehaviourDescription": "同一个模型的两种视角：分档线落在哪里，以及什么样的提交形态能让你高于这些线。",
+      "changeRisk": "变更风险",
       "evolutionTitle": "工作形态如何变化",
       "evolutionDescription": "按提交标题归类出的各类提交随时间的变化。修复类高亮显示，因为这张图存在的意义就是展示这一条序列。"
     },

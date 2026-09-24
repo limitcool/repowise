@@ -212,6 +212,11 @@
       "description": "Every commit scored for change-risk against this repo's own history, so 'elevated' means elevated here rather than on some global curve.",
       "emptyDescription": "Every commit scored for change-risk against this repo's own history.",
       "emptyHint": "Per-commit change-risk is captured on the next full index. Run a sync and the review queue fills in behind it.",
+      "reviewQueueTitle": "Review queue",
+      "reviewQueueDescription": "Newest first by default. Priority is a tercile of this repo's own distribution, so sorting by it shows only the top third — the filters narrow the whole repository, not the page.",
+      "scoreBehaviourTitle": "How the score behaves here",
+      "scoreBehaviourDescription": "Two views of the same model: where the cuts fall, and what commit shape lands you above them.",
+      "changeRisk": "Change risk",
       "evolutionTitle": "How the work changed shape",
       "evolutionDescription": "Commit categories over time, read off the subject line. Fixes carry the accent because that is the series this chart exists to show."
     },
