@@ -39,14 +39,16 @@ export default async function SettingsPage() {
       <WebhookSection />
 
       <p className="border-t border-[var(--color-border-default)] pt-6 text-xs text-[var(--color-text-tertiary)]">
-        Sync schedule, exclude patterns and deletion are per repository, on{" "}
-        <Link
-          href="/"
-          className="text-[var(--color-accent-primary)] hover:underline"
-        >
-          a repo&apos;s own settings page
-        </Link>
-        .
+        {t.rich("footer", {
+          link: (chunks) => (
+            <Link
+              href="/"
+              className="text-[var(--color-accent-primary)] hover:underline"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
       </p>
     </PageShell>
   );

@@ -144,7 +144,13 @@
     "errorTitle": "Something went wrong",
     "errorFallback": "An unexpected error occurred. Please try again.",
     "digest": "Digest",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "repoErrorTitle": "Failed to load repository",
+    "repoErrorFallback": "Could not load repository data. The backend may be unavailable.",
+    "retry": "Retry",
+    "dashboard": "Dashboard",
+    "repoNotFoundTitle": "Page not found",
+    "repoNotFoundBody": "The page or resource you requested doesn't exist for this repository. It may have been moved or never existed."
   },
   "dashboard": {
     "title": "Repositories",
@@ -243,7 +249,13 @@
     },
     "contributors": {
       "title": "Contributors",
-      "description": "Who knows what, mined from full git history. Ownership follows whoever wrote the surviving lines, not whoever committed last."
+      "description": "Who knows what, mined from full git history. Ownership follows whoever wrote the surviving lines, not whoever committed last.",
+      "profileTitle": "Contributor",
+      "profileEmptyTitle": "No profile for this contributor",
+      "profileEmptyDescription": "Nobody by this name or address appears in the indexed git history. They may have committed under a different address, or the history may not have been synced yet.",
+      "tenureSince": "Committing here since {date}",
+      "tenureLastTouched": "last touched {time}",
+      "unknownName": "unknown"
     },
     "costs": {
       "title": "Usage & savings",
@@ -335,6 +347,11 @@
     },
     "overview": {
       "title": "Overview"
+    },
+    "modules": {
+      "breadcrumb": "Code Health",
+      "notFoundTitle": "Module not found",
+      "notFoundDescription": "The requested module path doesn't exist in this repository's index."
     }
   },
   "settings": {
