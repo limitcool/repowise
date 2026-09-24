@@ -228,10 +228,29 @@
       "title": "Code health",
       "scopeFiles": "Files",
       "scopeCounts": "Counts",
+      "scopeAll": "All code",
+      "scopeProduction": "Production",
+      "countsEverything": "Everything",
+      "countsCodeShape": "Code shape only",
       "refresh": "Refresh",
       "refreshing": "Refreshing…",
       "trendTitle": "Health trend",
-      "trendDescription": "How the scores have moved across indexed snapshots."
+      "trendDescription": "How the scores have moved across indexed snapshots.",
+      "indexed": "Indexed {date}",
+      "notIndexed": "Not indexed yet",
+      "snapshots": "{count, plural, one {# snapshot} other {# snapshots}}",
+      "coChangeNoticeTitle": "Health scores changed in this release.",
+      "coChangeNoticeBody": "Co-change coupling is now measured relative to your repository and decays with commit history rather than calendar time, so roughly one file in ten moves a band. Scores are not comparable to snapshots taken before this release.",
+      "tabs": {
+        "triage": "Overview",
+        "performance": "Performance",
+        "findings": "Findings",
+        "coverage": "Tests",
+        "deadCode": "Dead code",
+        "docDrift": "Doc drift",
+        "security": "Security",
+        "impact": "Blast radius"
+      }
     },
     "knowledgeGraph": {
       "title": "Knowledge Graph",
