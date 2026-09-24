@@ -305,7 +305,13 @@
       "opportunitiesDescription": "本可被优化却没有被优化的行为。永不计入上面的总额。",
       "detailsTitle": "明细",
       "detailsDescription": "同样的节省数据，按日期、操作、计价模型和智能体拆分。",
-      "loadingSavings": "正在加载智能体节省数据"
+      "loadingSavings": "正在加载智能体节省数据",
+      "loadingSpend": "正在加载模型开销…",
+      "savingsErrorBody": "节省数据接口没有响应。",
+      "savingsErrorBodySpendUnaffected": "节省数据接口没有响应，下方的模型开销不受影响。",
+      "surfaceHeader": "采集面",
+      "surfaceCaption": "按产生这些节省的采集面划分",
+      "surfaceEmpty": "这个时间窗口内没有任何节省带有采集面。"
     },
     "repoSettings": {
       "title": "设置",

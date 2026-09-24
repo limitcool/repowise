@@ -96,8 +96,8 @@ export default function CostsPage() {
           // unconditionally, this sat directly above a spend error.
           message={
             spendError
-              ? "The savings endpoint did not respond."
-              : "The savings endpoint did not respond. Model spend below is unaffected."
+              ? t("savingsErrorBody")
+              : t("savingsErrorBodySpendUnaffected")
           }
           onRetry={() => void retrySavings()}
         />
@@ -117,7 +117,7 @@ export default function CostsPage() {
         {spendError ? (
           <ApiError title={t("spendErrorTitle")} onRetry={() => void retrySpend()} />
         ) : spend === undefined ? (
-          <p className="text-sm text-[var(--color-text-tertiary)]">Loading model spend…</p>
+          <p className="text-sm text-[var(--color-text-tertiary)]">{t("loadingSpend")}</p>
         ) : (
           <SpendSummary spend={spend} />
         )}
@@ -140,8 +140,9 @@ export default function CostsPage() {
  * that `PageShell` is already rendering for real just above this.
  */
 function SavingsSkeleton() {
+  const t = useTranslations("views.costs");
   return (
-    <SkeletonRegion label="Loading agent savings" className="flex flex-col gap-6">
+    <SkeletonRegion label={t("loadingSavings")} className="flex flex-col gap-6">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-12">
         <div className="flex flex-col gap-2.5 lg:w-[220px]">
           <Skeleton className="h-3 w-40" />
@@ -206,11 +207,11 @@ function SavingsSections({ data }: { data: SavingsView }) {
         <SavingsSourceTable
           rows={surfaces}
           total={data.saved_input_tokens}
-          nameHeader="Surface"
-          caption="Savings by the surface that produced them"
+          nameHeader={t("surfaceHeader")}
+          caption={t("surfaceCaption")}
           empty={
             <p className="text-sm text-[var(--color-text-secondary)]">
-              No savings in this window carry a surface.
+              {t("surfaceEmpty")}
             </p>
           }
         />

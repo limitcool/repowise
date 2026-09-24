@@ -305,7 +305,13 @@
       "opportunitiesDescription": "Behaviour that could have been optimised and was not. Never part of the total above.",
       "detailsTitle": "Details",
       "detailsDescription": "The same savings, cut by day, operation, pricing model and agent.",
-      "loadingSavings": "Loading agent savings"
+      "loadingSavings": "Loading agent savings",
+      "loadingSpend": "Loading model spend…",
+      "savingsErrorBody": "The savings endpoint did not respond.",
+      "savingsErrorBodySpendUnaffected": "The savings endpoint did not respond. Model spend below is unaffected.",
+      "surfaceHeader": "Surface",
+      "surfaceCaption": "Savings by the surface that produced them",
+      "surfaceEmpty": "No savings in this window carry a surface."
     },
     "repoSettings": {
       "title": "Settings",
