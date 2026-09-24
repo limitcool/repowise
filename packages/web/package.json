@@ -10,6 +10,7 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "i18n:check": "node scripts/check-i18n-keys.mjs",
+    "i18n:icu": "node scripts/check-i18n-icu.mjs",
     "i18n:todo": "node scripts/find-untranslated.mjs",
     "test": "vitest run"
   },
