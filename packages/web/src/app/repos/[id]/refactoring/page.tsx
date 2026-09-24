@@ -214,8 +214,8 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
     // Summed from the facets, not from the rollup: the facets follow the status
     // filter and the rollup does not, so under "Resolved" the rollup would put
     // the open total on a tab that lists resolved rows.
-    { id: "all" as const, label: "All", badge: facetTotal },
-    { id: "structural" as const, label: "Structural", badge: structuralCount },
+    { id: "all" as const, label: t("tabAll"), badge: facetTotal },
+    { id: "structural" as const, label: t("tabStructural"), badge: structuralCount },
     ...TYPE_ORDER.filter((t) => t !== "performance_fix").map((t) => ({
       id: t,
       label: typeMeta(t).label,
@@ -270,8 +270,7 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
         >
         {error ? (
           <div className="rounded-2xl border border-[var(--color-error)]/30 bg-[var(--color-error)]/5 p-6 text-sm text-[var(--color-text-secondary)]">
-            Couldn&apos;t load refactoring opportunities. The repo may not be indexed yet, or the
-            API is unreachable.
+            {t("loadFailed")}
           </div>
         ) : data?.summary?.status === "unavailable" ? (
           <div className="rounded-2xl border border-[var(--color-border-default)] p-6 text-sm text-[var(--color-text-secondary)]">
@@ -279,7 +278,7 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
           </div>
         ) : isLoading ? (
           // Matches the real layout's shapes: a lede block, a ribbon, a field.
-          <SkeletonRegion className="space-y-8" label="Loading refactoring opportunities">
+          <SkeletonRegion className="space-y-8" label={t("loading")}>
             <Skeleton className="h-32 rounded-xl" />
             <Skeleton className="h-16 rounded-xl" />
             <Skeleton className="h-72 rounded-xl" />
@@ -313,10 +312,10 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
             showLede={type === "all"}
             sectionTitle={
               type === "all"
-                ? "All opportunities"
+                ? t("sectionTitleAll")
                 : type === "structural"
-                  ? "Structural opportunities"
-                  : `${typeMeta(type).label} opportunities`
+                  ? t("sectionTitleStructural")
+                  : t("sectionTitleFiltered", { type: typeMeta(type).label })
             }
           />
         )}

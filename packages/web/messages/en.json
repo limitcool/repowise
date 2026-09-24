@@ -268,7 +268,13 @@
       "description": "One opportunity per file: the ordered steps the health pass wrote from your code. Open one to see the change, or hand it to a coding agent.",
       "promptTitle": "AI refactoring prompt",
       "promptDescription": "A ready-to-paste plan that hands your AI coding agent the ordered steps, which of them are mechanical, the evidence behind the diagnosis, and the id to query it back.",
-      "loading": "Loading refactoring opportunities"
+      "loading": "Loading refactoring opportunities",
+      "loadFailed": "Couldn't load refactoring opportunities. The repo may not be indexed yet, or the API is unreachable.",
+      "tabAll": "All",
+      "tabStructural": "Structural",
+      "sectionTitleAll": "All opportunities",
+      "sectionTitleStructural": "Structural opportunities",
+      "sectionTitleFiltered": "{type} opportunities"
     },
     "decisions": {
       "title": "Decisions",
