@@ -1,0 +1,259 @@
+{
+  "app": {
+    "description": "开源代码库文档引擎"
+  },
+  "common": {
+    "search": "搜索",
+    "loading": "加载中…",
+    "cancel": "取消",
+    "save": "保存",
+    "refresh": "刷新",
+    "refreshing": "刷新中…",
+    "dismiss": "忽略",
+    "close": "关闭",
+    "back": "返回",
+    "retry": "重试"
+  },
+  "language": {
+    "label": "语言",
+    "switched": "语言已切换为{language}"
+  },
+  "shell": {
+    "skipToContent": "跳到主内容",
+    "expandSidebar": "展开侧边栏",
+    "collapseSidebar": "收起侧边栏",
+    "openNavMenu": "打开导航菜单",
+    "openSearch": "打开搜索",
+    "repositories": "代码仓库",
+    "workspace": "工作区",
+    "indexingNow": "索引中",
+    "cantReachApiTitle": "无法连接 API",
+    "cantReachApiBody": "无法加载你的代码仓库列表。请确认 Repowise 服务正在运行，然后重新加载。",
+    "pillMissing": "缺失",
+    "pillIndex": "索引",
+    "statusDirectoryMissing": "目录不存在",
+    "statusNeedsIndexing": "待索引",
+    "titleDirectoryMissing": "目录不存在 —— 打开「工作区」移除或修复",
+    "titleNotIndexedSynthetic": "尚未索引。打开「工作区」开始索引。",
+    "titleNotIndexedRepo": "尚未索引。打开该仓库开始索引。",
+    "updateAvailable": "有可用更新",
+    "whatsNew": "更新内容",
+    "updateBanner": "repowise <b>v{latest}</b> 已发布",
+    "updateBannerCurrent": "（当前 v{current}）",
+    "updateBannerCommand": "运行 {command} 升级。",
+    "ask": "提问",
+    "commandPalette": {
+      "placeholder": "搜索代码仓库、页面、文件…",
+      "navigate": "导航",
+      "workspace": "工作区",
+      "repositories": "代码仓库",
+      "files": "文件",
+      "pages": "页面",
+      "noResults": "没有找到结果"
+    }
+  },
+  "nav": {
+    "dashboard": "仪表盘",
+    "settings": "设置",
+    "overview": "概览",
+    "chat": "对话",
+    "docs": "文档",
+    "architecture": "架构",
+    "knowledgeGraph": "知识图谱",
+    "codeHealth": "代码健康",
+    "refactoring": "重构",
+    "files": "文件",
+    "commits": "提交",
+    "contributors": "贡献者",
+    "decisions": "决策",
+    "stats": "统计",
+    "usageAndSavings": "用量与节省",
+    "systemMap": "系统地图",
+    "conformance": "一致性",
+    "contracts": "契约",
+    "coChanges": "共变分析",
+    "groupPeopleAndHistory": "人员与历史",
+    "groupSettings": "设置"
+  },
+  "breadcrumb": {
+    "overview": "概览",
+    "docs": "文档",
+    "chat": "对话",
+    "architecture": "架构",
+    "codeHealth": "代码健康",
+    "coverage": "测试",
+    "refactoringTargets": "重构目标",
+    "trend": "趋势",
+    "search": "搜索",
+    "graph": "依赖图",
+    "symbols": "符号",
+    "ownership": "归属",
+    "hotspots": "热点",
+    "deadCode": "死代码",
+    "blastRadius": "影响范围",
+    "decisions": "决策",
+    "commits": "提交",
+    "owners": "贡献者",
+    "modules": "模块",
+    "wiki": "维基",
+    "health": "代码健康",
+    "costs": "用量与节省",
+    "risk": "风险",
+    "security": "安全",
+    "settings": "设置",
+    "knowledgeGraph": "知识图谱",
+    "zoom": "缩放地图",
+    "files": "文件"
+  },
+  "errors": {
+    "notFoundTitle": "页面不存在",
+    "notFoundBody": "你请求的页面不存在，可能已被移动，或从未存在。",
+    "backToDashboard": "返回仪表盘",
+    "errorTitle": "出错了",
+    "errorFallback": "发生了意外错误，请重试。",
+    "digest": "摘要",
+    "tryAgain": "重试"
+  },
+  "dashboard": {
+    "title": "代码仓库",
+    "description": "repowise 从本机索引的全部内容。",
+    "ledeLabel": "代码仓库",
+    "ledeUnit": "已在本机索引",
+    "intro": "{files} 个文件与 {symbols} 个符号已纳入智能分析，并据此撰写了 {pages} 页文档。以下每个数字都来自索引实测，而非估算。",
+    "ribbon": {
+      "files": "文件",
+      "filesSub": "分布于 {count} 个代码仓库",
+      "symbols": "符号",
+      "symbolsSub": "函数、类与方法",
+      "docFreshness": "文档新鲜度",
+      "docFreshnessSub": "{fresh} / {total} 页",
+      "docFreshnessNone": "尚未生成文档",
+      "hotspots": "热点",
+      "hotspotsSub": "按变更频率与历史修复排名的文件",
+      "unusedExports": "未使用的导出",
+      "unusedExportsSub": "未关闭的死代码发现"
+    },
+    "indexingNow": "正在索引",
+    "indexingNowCount": "正在索引（{count}）",
+    "indexingNowDescription": "进度实时推送，本页无需刷新即可跟上。",
+    "repositoriesTitle": "代码仓库",
+    "repositoriesDescription": "按需要优先处理的程度排序 —— 先是从未索引的，其次是落后于工作区的，最后按健康分排序 —— 而不是按最近变更时间。",
+    "recentActivity": "最近活动",
+    "recentActivityDescription": "所有代码仓库最近的索引与同步运行记录。"
+  },
+  "attention": {
+    "unindexedOne": "{name} 尚未索引。",
+    "unindexedMany": "{count} 个代码仓库尚未索引。",
+    "behindOne": "{name} 落后于其工作区 —— 在其中运行 repowise update 即可追上。",
+    "behindMany": "{count} 个仓库落后于各自的工作区 —— 在它们之中运行 repowise update 即可追上。",
+    "lowestScore": "最低健康分为 10 分中的 {score} 分，出现在 {name}。",
+    "nothingAnalysed": "它们都尚未分析，因此没有健康分可供比较。",
+    "allCurrent": "所有索引都与其检出保持同步。{parts}"
+  },
+  "views": {
+    "files": {
+      "title": "文件",
+      "description": "下钻这幅地图，看清目录树的形状以及健康度薄弱的位置，再筛选表格定位具体文件。"
+    },
+    "stats": {
+      "title": "数据一览",
+      "description": "这些是这个代码库在其他地方看不到的信息：它有多大、从何时开始、工作发生在什么时间，以及它保持的纪录。"
+    },
+    "commits": {
+      "title": "提交",
+      "description": "每个提交都针对该仓库自身的历史评定了变更风险，因此「偏高」是相对本仓库偏高，而不是套用某条全局曲线。",
+      "emptyDescription": "每个提交都针对该仓库自身的历史评定了变更风险。",
+      "emptyHint": "每次完整索引时会采集逐提交的变更风险。跑一次同步，评审队列随后就会填充。",
+      "evolutionTitle": "工作形态如何变化",
+      "evolutionDescription": "按提交标题归类出的各类提交随时间的变化。修复类高亮显示，因为这张图存在的意义就是展示这一条序列。"
+    },
+    "codeHealth": {
+      "title": "代码健康",
+      "scopeFiles": "文件",
+      "scopeCounts": "计数",
+      "refresh": "刷新",
+      "refreshing": "刷新中…",
+      "trendTitle": "健康趋势",
+      "trendDescription": "分数在历次索引快照之间如何变化。"
+    },
+    "knowledgeGraph": {
+      "title": "知识图谱",
+      "description": "像看地图一样探索你的代码库：滚动缩放、拖拽平移，双击任意卡片可深入其分层、目录与文件，并按代码实际的运行方式排序。"
+    },
+    "refactoring": {
+      "title": "重构",
+      "description": "每个文件一条机会：健康度检查依据你的代码写出的有序步骤。打开一条查看改动，或把它交给编码智能体执行。",
+      "promptTitle": "AI 重构提示词",
+      "promptDescription": "一份可直接粘贴的计划，把有序步骤、其中哪些是机械改动、诊断背后的证据，以及用于回查的 id 一并交给你的 AI 编码智能体。",
+      "loading": "正在加载重构机会"
+    },
+    "decisions": {
+      "title": "决策",
+      "description": "这个代码库已经定下来的事，以及你脚下这份检出的真实状况：约束、权衡，以及那些容易让人踩坑的事实。",
+      "ledeAccepted": "已接受",
+      "ledeConfirmed": "已确认",
+      "checkoutTitle": "关于这份检出",
+      "checkoutDescription": "这些是关于工作区本身的事实，而不是谁对它的声明；它们在索引时推导得出，不调用模型、无需历史记录。正是这些事实最容易绊倒新来的人，无论他是人还是智能体。",
+      "reviewTitle": "评审",
+      "reviewDescription": "按每条记录的「被接受」实际意味着什么来划分，而不是按状态词划分。每条记录只落在一个分区里，计数可以相加：有约束力的、无人评审过的、与所指向代码已脱节的、什么都指不到的，以及已退役的。"
+    },
+    "contributors": {
+      "title": "贡献者",
+      "description": "谁懂哪部分代码，从完整 git 历史中挖掘得出。归属跟随仍然存活的那些行的作者，而不是最后提交的人。"
+    },
+    "costs": {
+      "title": "用量与节省",
+      "description": "智能体避开了什么、Repowise 花了多少，以及我们凭什么这么说。",
+      "savingsErrorTitle": "无法加载智能体节省数据",
+      "spendTitle": "Repowise 模型开销",
+      "spendDescription": "Repowise 自身模型工作产生的花费，与智能体节省并列展示，且从不从中扣除。",
+      "spendErrorTitle": "无法加载模型开销",
+      "savingsEmptyTitle": "尚未记录任何智能体节省",
+      "savingsEmptyDescription": "把嘈杂的命令走 repowise distill，或者用 repowise hook rewrite install 安装重写钩子。一旦有智能体开始使用这个仓库，节省数据就会自动出现在这里。",
+      "bySourceTitle": "按来源划分的节省",
+      "bySourceDescription": "总额中每一部分各由哪个采集面产生。",
+      "opportunitiesTitle": "观察到的机会",
+      "opportunitiesDescription": "本可被优化却没有被优化的行为。永不计入上面的总额。",
+      "detailsTitle": "明细",
+      "detailsDescription": "同样的节省数据，按日期、操作、计价模型和智能体拆分。",
+      "loadingSavings": "正在加载智能体节省数据"
+    },
+    "repoSettings": {
+      "title": "设置",
+      "description": "{repo} 的索引、模型密钥与健康度。服务器、Webhook 与编辑器配置在所有代码仓库之间共享。"
+    },
+    "globalSettings": {
+      "title": "设置",
+      "description": "这个仪表盘如何连接你的服务器、默认使用哪个模型，以及 MCP 服务器向智能体提供什么。改动会随改随存。",
+      "footer": "同步计划、排除规则与删除按代码仓库分别设置，位于{link}。"
+    },
+    "workspace": {
+      "title": "工作区",
+      "description": "这个工作区中注册的全部代码仓库，以及它们之间的关联。",
+      "emptyTitle": "尚未发现任何代码仓库",
+      "emptyDescription": "在工作区根目录运行 `repowise init .` 以扫描 git 仓库并建立索引。扫描完成后它们就会出现在这里。",
+      "ledeLabel": "代码仓库",
+      "syncWorkspace": "同步工作区",
+      "reposTitle": "代码仓库",
+      "reposDescription": "按需要优先处理的程度排序 —— 先是从未索引的，其次是磁盘上已缺失的，最后按健康分排序 —— 而不是按名称。",
+      "contractsTitle": "契约",
+      "contractsDescription": "一个代码仓库发布、另一个消费的路由、主题与数据表，在整个工作区范围内完成匹配。",
+      "coChangesTitle": "一起变更的文件",
+      "coChangesDescription": "近期提交在同一会话中触碰过的跨仓库文件对。这是从 git 历史中挖掘出的工作模式信号，而非声明的依赖。",
+      "sync": "同步",
+      "indexNow": "立即索引"
+    },
+    "docsFreshness": {
+      "title": "文档新鲜度",
+      "header": "{count} 页文档的新鲜度",
+      "freshPct": "{pct}% 的页面是新鲜的",
+      "fresh": "新鲜",
+      "stale": "陈旧",
+      "outdated": "过期",
+      "pctOfPages": "{pct}% 的页面"
+    },
+    "overview": {
+      "title": "概览"
+    }
+  }
+}

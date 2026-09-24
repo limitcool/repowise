@@ -1,0 +1,259 @@
+{
+  "app": {
+    "description": "Open-source codebase documentation engine"
+  },
+  "common": {
+    "search": "Search",
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "save": "Save",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing…",
+    "dismiss": "Dismiss",
+    "close": "Close",
+    "back": "Back",
+    "retry": "Try again"
+  },
+  "language": {
+    "label": "Language",
+    "switched": "Language switched to {language}"
+  },
+  "shell": {
+    "skipToContent": "Skip to content",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "openNavMenu": "Open navigation menu",
+    "openSearch": "Open search",
+    "repositories": "Repositories",
+    "workspace": "Workspace",
+    "indexingNow": "Indexing",
+    "cantReachApiTitle": "Can't reach the API",
+    "cantReachApiBody": "Your repositories could not be loaded. Check that the Repowise server is running, then reload.",
+    "pillMissing": "missing",
+    "pillIndex": "index",
+    "statusDirectoryMissing": "directory missing",
+    "statusNeedsIndexing": "needs indexing",
+    "titleDirectoryMissing": "Directory missing — open Workspace to remove or fix",
+    "titleNotIndexedSynthetic": "Not indexed yet. Open Workspace to index.",
+    "titleNotIndexedRepo": "Not indexed yet. Open the repo to index.",
+    "updateAvailable": "Update available",
+    "whatsNew": "What's new",
+    "updateBanner": "repowise <b>v{latest}</b> is available",
+    "updateBannerCurrent": " (you have v{current})",
+    "updateBannerCommand": "Run {command} to upgrade.",
+    "ask": "Ask",
+    "commandPalette": {
+      "placeholder": "Search repositories, pages, files…",
+      "navigate": "Navigate",
+      "workspace": "Workspace",
+      "repositories": "Repositories",
+      "files": "Files",
+      "pages": "Pages",
+      "noResults": "No results found"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "overview": "Overview",
+    "chat": "Chat",
+    "docs": "Docs",
+    "architecture": "Architecture",
+    "knowledgeGraph": "Knowledge Graph",
+    "codeHealth": "Code Health",
+    "refactoring": "Refactoring",
+    "files": "Files",
+    "commits": "Commits",
+    "contributors": "Contributors",
+    "decisions": "Decisions",
+    "stats": "Stats",
+    "usageAndSavings": "Usage & savings",
+    "systemMap": "System Map",
+    "conformance": "Conformance",
+    "contracts": "Contracts",
+    "coChanges": "Co-Changes",
+    "groupPeopleAndHistory": "People & History",
+    "groupSettings": "Settings"
+  },
+  "breadcrumb": {
+    "overview": "Overview",
+    "docs": "Docs",
+    "chat": "Chat",
+    "architecture": "Architecture",
+    "codeHealth": "Code Health",
+    "coverage": "Tests",
+    "refactoringTargets": "Refactoring Targets",
+    "trend": "Trend",
+    "search": "Search",
+    "graph": "Graph",
+    "symbols": "Symbols",
+    "ownership": "Ownership",
+    "hotspots": "Hotspots",
+    "deadCode": "Dead Code",
+    "blastRadius": "Blast Radius",
+    "decisions": "Decisions",
+    "commits": "Commits",
+    "owners": "Contributors",
+    "modules": "Modules",
+    "wiki": "Wiki",
+    "health": "Code Health",
+    "costs": "Usage & Savings",
+    "risk": "Risk",
+    "security": "Security",
+    "settings": "Settings",
+    "knowledgeGraph": "Knowledge Graph",
+    "zoom": "Zoom Map",
+    "files": "Files"
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page you requested doesn't exist. It may have been moved or never existed.",
+    "backToDashboard": "Back to dashboard",
+    "errorTitle": "Something went wrong",
+    "errorFallback": "An unexpected error occurred. Please try again.",
+    "digest": "Digest",
+    "tryAgain": "Try again"
+  },
+  "dashboard": {
+    "title": "Repositories",
+    "description": "Everything repowise has indexed from this machine.",
+    "ledeLabel": "Repositories",
+    "ledeUnit": "indexed on this machine",
+    "intro": "{files} files and {symbols} symbols are under intelligence here, with {pages} documentation pages written from them. Every figure below is measured from the index rather than estimated.",
+    "ribbon": {
+      "files": "Files",
+      "filesSub": "across {count} repositories",
+      "symbols": "Symbols",
+      "symbolsSub": "functions, classes and methods",
+      "docFreshness": "Doc freshness",
+      "docFreshnessSub": "{fresh} of {total} pages",
+      "docFreshnessNone": "no documentation generated yet",
+      "hotspots": "Hotspots",
+      "hotspotsSub": "files by churn and prior fixes",
+      "unusedExports": "Unused exports",
+      "unusedExportsSub": "open dead-code findings"
+    },
+    "indexingNow": "Indexing now",
+    "indexingNowCount": "Indexing now ({count})",
+    "indexingNowDescription": "Progress streams live; this page does not need a refresh to catch up.",
+    "repositoriesTitle": "Repositories",
+    "repositoriesDescription": "Ordered by what needs attention first — never indexed, then behind their working tree, then by health score — rather than by when they last changed.",
+    "recentActivity": "Recent activity",
+    "recentActivityDescription": "The last indexing and sync runs across every repository."
+  },
+  "attention": {
+    "unindexedOne": "{name} has not been indexed yet.",
+    "unindexedMany": "{count} repositories have not been indexed yet.",
+    "behindOne": "{name} is behind its working tree — run repowise update in it to catch up.",
+    "behindMany": "{count} are behind their working trees — run repowise update in them to catch up.",
+    "lowestScore": "Lowest health score is {score} out of 10, in {name}.",
+    "nothingAnalysed": "None of them has been analysed yet, so there are no health scores to compare.",
+    "allCurrent": "Every index is current with its checkout. {parts}"
+  },
+  "views": {
+    "files": {
+      "title": "Files",
+      "description": "Drill the map to see how the tree is shaped and where health is thin, then filter the table to find a specific file."
+    },
+    "stats": {
+      "title": "By the Numbers",
+      "description": "The things about this codebase you can't see anywhere else: how big it got, when it started, when the work happens, and the records it holds."
+    },
+    "commits": {
+      "title": "Commits",
+      "description": "Every commit scored for change-risk against this repo's own history, so 'elevated' means elevated here rather than on some global curve.",
+      "emptyDescription": "Every commit scored for change-risk against this repo's own history.",
+      "emptyHint": "Per-commit change-risk is captured on the next full index. Run a sync and the review queue fills in behind it.",
+      "evolutionTitle": "How the work changed shape",
+      "evolutionDescription": "Commit categories over time, read off the subject line. Fixes carry the accent because that is the series this chart exists to show."
+    },
+    "codeHealth": {
+      "title": "Code health",
+      "scopeFiles": "Files",
+      "scopeCounts": "Counts",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing…",
+      "trendTitle": "Health trend",
+      "trendDescription": "How the scores have moved across indexed snapshots."
+    },
+    "knowledgeGraph": {
+      "title": "Knowledge Graph",
+      "description": "Explore your codebase like a map: scroll to zoom, drag to pan, and double-click any card to dive into its layers, folders and files, ranked by how the code actually runs."
+    },
+    "refactoring": {
+      "title": "Refactoring",
+      "description": "One opportunity per file: the ordered steps the health pass wrote from your code. Open one to see the change, or hand it to a coding agent.",
+      "promptTitle": "AI refactoring prompt",
+      "promptDescription": "A ready-to-paste plan that hands your AI coding agent the ordered steps, which of them are mechanical, the evidence behind the diagnosis, and the id to query it back.",
+      "loading": "Loading refactoring opportunities"
+    },
+    "decisions": {
+      "title": "Decisions",
+      "description": "What this codebase has settled on and what is true of the checkout you are standing in: the constraints, the tradeoffs, and the facts that catch people out.",
+      "ledeAccepted": "Accepted",
+      "ledeConfirmed": "Confirmed",
+      "checkoutTitle": "About this checkout",
+      "checkoutDescription": "Facts about the working tree rather than claims anybody made about it, derived at index time with no model call and no history. These are the ones that trip up a newcomer, human or agent.",
+      "reviewTitle": "Review",
+      "reviewDescription": "Split by what each record's acceptance amounts to, not by a status word. Every record is in exactly one lane and the counts add up: what governs, what nobody has reviewed, what has drifted from the code it names, what names nothing at all, and what has been retired."
+    },
+    "contributors": {
+      "title": "Contributors",
+      "description": "Who knows what, mined from full git history. Ownership follows whoever wrote the surviving lines, not whoever committed last."
+    },
+    "costs": {
+      "title": "Usage & savings",
+      "description": "What agents avoided, what Repowise cost, and how we know.",
+      "savingsErrorTitle": "Couldn't load agent savings",
+      "spendTitle": "Repowise model spend",
+      "spendDescription": "What Repowise's own model work cost, reported beside agent savings and never subtracted from them.",
+      "spendErrorTitle": "Couldn't load model spend",
+      "savingsEmptyTitle": "No agent savings recorded yet",
+      "savingsEmptyDescription": "Route noisy commands through repowise distill, or install the rewrite hook with repowise hook rewrite install. Savings appear here on their own once an agent starts using this repository.",
+      "bySourceTitle": "Savings by source",
+      "bySourceDescription": "Which capture surface produced each part of the total.",
+      "opportunitiesTitle": "Observed opportunities",
+      "opportunitiesDescription": "Behaviour that could have been optimised and was not. Never part of the total above.",
+      "detailsTitle": "Details",
+      "detailsDescription": "The same savings, cut by day, operation, pricing model and agent.",
+      "loadingSavings": "Loading agent savings"
+    },
+    "repoSettings": {
+      "title": "Settings",
+      "description": "Indexing, model keys and health for {repo}. Server, webhook and editor configuration are shared across repositories."
+    },
+    "globalSettings": {
+      "title": "Settings",
+      "description": "How this dashboard reaches your server, which model it defaults to, and what the MCP server offers an agent. Changes save as you make them.",
+      "footer": "Sync schedule, exclude patterns and deletion are per repository, on {link}."
+    },
+    "workspace": {
+      "title": "Workspace",
+      "description": "Every repository registered in this workspace, and what connects them.",
+      "emptyTitle": "No repositories discovered yet",
+      "emptyDescription": "Run `repowise init .` in the workspace root to scan for git repositories and index them. They show up here as soon as the scan lands.",
+      "ledeLabel": "Repositories",
+      "syncWorkspace": "Sync workspace",
+      "reposTitle": "Repositories",
+      "reposDescription": "Ordered by what needs attention first — never indexed, then missing on disk, then by health score — rather than by name.",
+      "contractsTitle": "Contracts",
+      "contractsDescription": "Routes, topics and tables one repository publishes and another consumes, matched across the workspace.",
+      "coChangesTitle": "Files that change together",
+      "coChangesDescription": "Cross-repo file pairs that recent commits touched in the same session. A work-pattern signal mined from git history, not a declared dependency.",
+      "sync": "Sync",
+      "indexNow": "Index now"
+    },
+    "docsFreshness": {
+      "title": "Doc freshness",
+      "header": "Freshness across {count} pages",
+      "freshPct": "{pct}% of pages are fresh",
+      "fresh": "Fresh",
+      "stale": "Stale",
+      "outdated": "Outdated",
+      "pctOfPages": "{pct}% of pages"
+    },
+    "overview": {
+      "title": "Overview"
+    }
+  }
+}
