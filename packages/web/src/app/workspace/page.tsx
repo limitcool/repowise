@@ -21,6 +21,7 @@ import { ContractTypeBadge } from "@repowise-dev/ui/workspace/contract-type-badg
 import { formatNumber } from "@repowise-dev/ui/lib/format";
 import { getWorkspace, getWorkspaceCoChanges } from "@/lib/api/workspace";
 import { RemoveWorkspaceRepoButton, SyncButton } from "./sync-buttons";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = { title: "Workspace" };
 
@@ -49,6 +50,7 @@ const COCHANGE_PREVIEW = 8;
  *     that decides whether you open it.
  */
 export default async function WorkspaceDashboardPage() {
+  const t = await getTranslations("views.workspace");
   // One wave, both on the server. The graph section that used to sit here was
   // a client component fetching after mount, which waterfalled a second
   // per-repo sqlite sweep in behind the paint.
@@ -68,11 +70,11 @@ export default async function WorkspaceDashboardPage() {
       <PageShell
         title={workspace?.workspace_name ?? "Workspace"}
         icon={<Layers className="h-5 w-5 text-[var(--color-text-tertiary)]" />}
-        description="Every repository registered in this workspace, and what connects them."
+        description={t("description")}
       >
         <EmptyState
-          title="No repositories discovered yet"
-          description="Run `repowise init .` in the workspace root to scan for git repositories and index them. They show up here as soon as the scan lands."
+          title={t("emptyTitle")}
+          description={t("emptyDescription")}
           icon={<Layers className="h-8 w-8" />}
         />
       </PageShell>
@@ -135,8 +137,8 @@ export default async function WorkspaceDashboardPage() {
     <PageShell
       title={workspace?.workspace_name ?? "Workspace"}
       icon={<Layers className="h-5 w-5 text-[var(--color-text-tertiary)]" />}
-      description="Every repository registered in this workspace, and what connects them."
-      actions={<SyncButton variant="primary" label="Sync workspace" />}
+      description={t("description")}
+      actions={<SyncButton variant="primary" label={t("syncWorkspace")} />}
     >
       <PageLede
         label="Repositories"
@@ -169,8 +171,8 @@ export default async function WorkspaceDashboardPage() {
       <StatRibbon stats={ribbon} LinkComponent={Link} />
 
       <OverviewSection
-        title="Repositories"
-        description="Ordered by what needs attention first — never indexed, then missing on disk, then by health score — rather than by name."
+        title={t("reposTitle")}
+        description={t("reposDescription")}
       >
         <RepoRows
           repos={repos.slice().sort(byAttention).map(toRow)}
@@ -181,7 +183,7 @@ export default async function WorkspaceDashboardPage() {
             ) : (
               <SyncButton
                 alias={repo.id}
-                label={repo.status === "indexed" ? "Sync" : "Index now"}
+                label={repo.status === "indexed" ? t("sync") : t("indexNow")}
               />
             )
           }
@@ -190,8 +192,8 @@ export default async function WorkspaceDashboardPage() {
 
       {contracts && contracts.total_contracts > 0 && (
         <OverviewSection
-          title="Contracts"
-          description="Routes, topics and tables one repository publishes and another consumes, matched across the workspace."
+          title={t("contractsTitle")}
+          description={t("contractsDescription")}
           action={
             <SectionLink href="/workspace/contracts" LinkComponent={Link}>
               All contracts
@@ -218,8 +220,8 @@ export default async function WorkspaceDashboardPage() {
 
       {coChanges && coChanges.co_changes.length > 0 && (
         <OverviewSection
-          title="Files that change together"
-          description="Cross-repo file pairs that recent commits touched in the same session. A work-pattern signal mined from git history, not a declared dependency."
+          title={t("coChangesTitle")}
+          description={t("coChangesDescription")}
           action={
             <SectionLink href="/workspace/co-changes" LinkComponent={Link}>
               All co-changes

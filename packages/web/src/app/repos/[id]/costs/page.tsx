@@ -26,6 +26,7 @@ import {
 } from "@repowise-dev/ui/savings";
 import { getCostSummary, getSavings } from "@/lib/api/costs";
 import type { CostSummary, Savings } from "@/lib/api/costs";
+import { useTranslations } from "next-intl";
 
 /** Where the accounting is written down. One constant, used by the lede, the
  *  reset notice and the methodology section, so the three cannot drift. */
@@ -59,6 +60,7 @@ function resetNoticeKey(repoId: string): string {
 export default function CostsPage() {
   const params = useParams<{ id: string }>();
   const id = params.id;
+  const t = useTranslations("views.costs");
 
   // Two fetches above the fold, in one wave. The previous page made five, three
   // of them the same endpoint with a different `by` for tabs that were not
@@ -82,14 +84,14 @@ export default function CostsPage() {
 
   return (
     <PageShell
-      title="Usage & savings"
-      description="What agents avoided, what Repowise cost, and how we know."
+      title={t("title")}
+      description={t("description")}
     >
       <ResetNotice repoId={id} />
 
       {savingsError ? (
         <ApiError
-          title="Couldn't load agent savings"
+          title={t("savingsErrorTitle")}
           // Only claim spend is fine when it actually is. Asserted
           // unconditionally, this sat directly above a spend error.
           message={
@@ -109,11 +111,11 @@ export default function CostsPage() {
       )}
 
       <OverviewSection
-        title="Repowise model spend"
-        description="What Repowise's own model work cost, reported beside agent savings and never subtracted from them."
+        title={t("spendTitle")}
+        description={t("spendDescription")}
       >
         {spendError ? (
-          <ApiError title="Couldn't load model spend" onRetry={() => void retrySpend()} />
+          <ApiError title={t("spendErrorTitle")} onRetry={() => void retrySpend()} />
         ) : spend === undefined ? (
           <p className="text-sm text-[var(--color-text-tertiary)]">Loading model spend…</p>
         ) : (
@@ -171,13 +173,14 @@ function SavingsSkeleton() {
  * different claim from a measured zero.
  */
 function SavingsSections({ data }: { data: SavingsView }) {
+  const t = useTranslations("views.costs");
   if (!data.available) {
     return (
       <EmptyState
-        title="No agent savings recorded yet"
+        title={t("savingsEmptyTitle")}
         // Plain text: EmptyState renders its description as a string, so
         // backticks would print as backticks.
-        description="Route noisy commands through repowise distill, or install the rewrite hook with repowise hook rewrite install. Savings appear here on their own once an agent starts using this repository."
+        description={t("savingsEmptyDescription")}
       />
     );
   }
@@ -197,8 +200,8 @@ function SavingsSections({ data }: { data: SavingsView }) {
       <SavingsLede data={data} methodologyHref={METHODOLOGY_HREF} LinkComponent={Link} />
 
       <OverviewSection
-        title="Savings by source"
-        description="Which capture surface produced each part of the total."
+        title={t("bySourceTitle")}
+        description={t("bySourceDescription")}
       >
         <SavingsSourceTable
           rows={surfaces}
@@ -215,16 +218,16 @@ function SavingsSections({ data }: { data: SavingsView }) {
 
       {opportunities.length > 0 && (
         <OverviewSection
-          title="Observed opportunities"
-          description="Behaviour that could have been optimised and was not. Never part of the total above."
+          title={t("opportunitiesTitle")}
+          description={t("opportunitiesDescription")}
         >
           <OpportunityList items={opportunities} LinkComponent={Link} />
         </OverviewSection>
       )}
 
       <OverviewSection
-        title="Details"
-        description="The same savings, cut by day, operation, pricing model and agent."
+        title={t("detailsTitle")}
+        description={t("detailsDescription")}
       >
         <UsageDetails data={data} />
       </OverviewSection>

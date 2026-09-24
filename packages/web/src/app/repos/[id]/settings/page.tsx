@@ -12,6 +12,7 @@ import { RepoSettingsFormWrapper as RepoSettingsForm } from "@/components/repos/
 import { CoordinatorHealthPanel } from "@/components/repos/coordinator-health-panel";
 import { DeleteRepoButton } from "@/components/repos/delete-repo-button";
 import { OperationsPanel } from "@/components/repos/operations-panel";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -41,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function RepoSettingsPage({ params }: Props) {
   const { id } = await params;
+  const t = await getTranslations("views.repoSettings");
 
   let repo;
   try {
@@ -53,8 +55,8 @@ export default async function RepoSettingsPage({ params }: Props) {
 
   return (
     <PageShell
-      title="Settings"
-      description={`Indexing, model keys and health for ${repo.name}. Server, webhook and editor configuration are shared across repositories.`}
+      title={t("title")}
+      description={t("description", { repo: repo.name })}
       className="max-w-3xl"
     >
       <OverviewSection

@@ -13,6 +13,7 @@ import { listEpisodes } from "@/lib/api/episodes";
 import { ApiClientError } from "@/lib/api/client";
 import { AddDecisionButton } from "@/components/decisions/add-decision-button";
 import { DecisionReviewWrapper } from "@/components/decisions/decision-review-wrapper";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 30;
 export const metadata: Metadata = { title: "Decisions" };
@@ -64,6 +65,7 @@ interface Props {
  */
 export default async function DecisionsPage({ params }: Props) {
   const { id: repoId } = await params;
+  const t = await getTranslations("views.decisions");
 
   let decisions;
   try {
@@ -139,8 +141,8 @@ export default async function DecisionsPage({ params }: Props) {
 
   return (
     <PageShell
-      title="Decisions"
-      description="What this codebase has settled on and what is true of the checkout you are standing in: the constraints, the tradeoffs, and the facts that catch people out."
+      title={t("title")}
+      description={t("description")}
     >
       {/* The headline used to be the size of the review queue, so the largest
           number on the page pointed at the work nobody had done rather than at
@@ -231,8 +233,8 @@ export default async function DecisionsPage({ params }: Props) {
 
       {facts && (
         <OverviewSection
-          title="About this checkout"
-          description="Facts about the working tree rather than claims anybody made about it, derived at index time with no model call and no history. These are the ones that trip up a newcomer, human or agent."
+          title={t("checkoutTitle")}
+          description={t("checkoutDescription")}
         >
           <CheckoutFacts
             facts={facts.episodes}
@@ -244,8 +246,8 @@ export default async function DecisionsPage({ params }: Props) {
 
       {!empty && (
         <OverviewSection
-          title="Review"
-          description="Split by what each record's acceptance amounts to, not by a status word. Every record is in exactly one lane and the counts add up: what governs, what nobody has reviewed, what has drifted from the code it names, what names nothing at all, and what has been retired."
+          title={t("reviewTitle")}
+          description={t("reviewDescription")}
         >
           <DecisionReviewWrapper repoId={repoId} pageSize={PAGE_SIZE} />
         </OverviewSection>

@@ -86,6 +86,7 @@ import {
   type HealthOverviewResponse,
   type HealthTrendResponse,
 } from "@/lib/api/code-health";
+import { useTranslations } from "next-intl";
 
 const TABS = [
   "triage",
@@ -237,6 +238,7 @@ const MAP_CAP = 2000;
 const CHURN_POINT_LIMIT = 5000;
 
 export default function CodeHealthPage() {
+  const t = useTranslations("views.codeHealth");
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -492,7 +494,7 @@ export default function CodeHealthPage() {
 
   return (
     <PageShell
-      title="Code health"
+      title={t("title")}
       icon={<HeartPulse className="h-5 w-5 text-[var(--color-success)]" />}
       // No description: the lede below opens with what the score is built from,
       // and a header that says it first only says it twice.
@@ -527,7 +529,7 @@ export default function CodeHealthPage() {
             <RotateCw
               className={`mr-1.5 h-3.5 w-3.5 ${refreshing ? "motion-safe:animate-spin" : ""}`}
             />{" "}
-            {refreshing ? "Refreshing…" : "Refresh"}
+            {refreshing ? t("refreshing") : t("refresh")}
           </Button>
         </div>
       }
@@ -583,8 +585,8 @@ export default function CodeHealthPage() {
             hotspotsSlot={<HotspotsSection repoId={repoId} />}
             trendSlot={
               <OverviewSection
-                title="Health trend"
-                description="How the scores have moved across indexed snapshots."
+                title={t("trendTitle")}
+                description={t("trendDescription")}
               >
                 <TrendSection
                   data={trend}

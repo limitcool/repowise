@@ -16,6 +16,7 @@
 import { use, useCallback, useDeferredValue, useMemo, useState } from "react";
 import useSWR from "swr";
 import { parseAsString, parseAsStringLiteral, useQueryState } from "nuqs";
+import { useTranslations } from "next-intl";
 import { Wrench, RotateCw } from "lucide-react";
 import { PageShell } from "@repowise-dev/ui/shared/page-shell";
 import { ViewTabs } from "@repowise-dev/ui/shared/view-tabs";
@@ -73,6 +74,8 @@ function leadTypeFor(type: TypeFilter): string | undefined {
 
 export default function RefactoringPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: repoId } = use(params);
+  const t = useTranslations("views.refactoring");
+  const tCommon = useTranslations("common");
   const [type, setType] = useQueryState(
     "type",
     parseAsStringLiteral(TYPE_VALUES).withDefault("all"),
@@ -218,7 +221,7 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
       label: typeMeta(t).label,
       badge: facetCounts[t] ?? 0,
     })),
-  ].filter((t) => t.id === "all" || (t.badge ?? 0) > 0);
+  ].filter((tab) => tab.id === "all" || (tab.badge ?? 0) > 0);
 
   const serverState: RefactoringBoardServerState = {
     query,
@@ -234,9 +237,9 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
 
   return (
     <PageShell
-      title="Refactoring"
+      title={t("title")}
       icon={<Wrench className="h-5 w-5 text-[var(--color-accent-primary)]" />}
-      description="One opportunity per file: the ordered steps the health pass wrote from your code. Open one to see the change, or hand it to a coding agent."
+      description={t("description")}
       actions={
         <button
           type="button"
@@ -244,7 +247,7 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
           className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--color-border-default)] px-2.5 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
         >
           <RotateCw className="h-3.5 w-3.5" />
-          Refresh
+          {tCommon("refresh")}
         </button>
       }
     >
@@ -362,8 +365,8 @@ export default function RefactoringPage({ params }: { params: Promise<{ id: stri
             : null
         }
         filePath={promptFor?.value.file_path ?? null}
-        title="AI refactoring prompt"
-        description="A ready-to-paste plan that hands your AI coding agent the ordered steps, which of them are mechanical, the evidence behind the diagnosis, and the id to query it back."
+        title={t("promptTitle")}
+        description={t("promptDescription")}
       />
     </PageShell>
   );
