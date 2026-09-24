@@ -393,7 +393,8 @@
       "fresh": "Fresh",
       "stale": "Stale",
       "outdated": "Outdated",
-      "pctOfPages": "{pct}% of pages"
+      "pctOfPages": "{pct}% of pages",
+      "distribution": "Distribution"
     },
     "overview": {
       "title": "Overview"

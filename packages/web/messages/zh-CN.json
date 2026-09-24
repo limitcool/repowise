@@ -393,7 +393,8 @@
       "fresh": "新鲜",
       "stale": "陈旧",
       "outdated": "过期",
-      "pctOfPages": "{pct}% 的页面"
+      "pctOfPages": "{pct}% 的页面",
+      "distribution": "分布"
     },
     "overview": {
       "title": "概览"
