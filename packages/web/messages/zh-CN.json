@@ -40,16 +40,26 @@
     "whatsNew": "更新内容",
     "updateBanner": "repowise <b>v{latest}</b> 已发布",
     "updateBannerCurrent": "（当前 v{current}）",
-    "updateBannerCommand": "运行 {command} 升级。",
+    "updateBannerCommand": "运行 <code>{command}</code> 升级。",
     "ask": "提问",
     "commandPalette": {
-      "placeholder": "搜索代码仓库、页面、文件…",
+      "label": "命令面板",
+      "placeholder": "跳转到文件、搜索页面、切换仓库…",
+      "searching": "搜索中…",
       "navigate": "导航",
       "workspace": "工作区",
+      "workspaceOverview": "工作区概览",
       "repositories": "代码仓库",
       "files": "文件",
       "pages": "页面",
-      "noResults": "没有找到结果"
+      "askGroup": "提问",
+      "askWithQuery": "问 repowise：“{query}”",
+      "askEmpty": "问 repowise…",
+      "goTo": "前往 — {repo}",
+      "noResults": "没有找到结果。",
+      "hintNavigate": "↑↓ 移动",
+      "hintSelect": "↵ 选择",
+      "hintClose": "esc 关闭"
     }
   },
   "nav": {

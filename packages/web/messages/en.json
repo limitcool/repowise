@@ -40,16 +40,26 @@
     "whatsNew": "What's new",
     "updateBanner": "repowise <b>v{latest}</b> is available",
     "updateBannerCurrent": " (you have v{current})",
-    "updateBannerCommand": "Run {command} to upgrade.",
+    "updateBannerCommand": "Run <code>{command}</code> to upgrade.",
     "ask": "Ask",
     "commandPalette": {
-      "placeholder": "Search repositories, pages, files…",
+      "label": "Command palette",
+      "placeholder": "Jump to a file, search pages, navigate repos…",
+      "searching": "Searching…",
       "navigate": "Navigate",
       "workspace": "Workspace",
+      "workspaceOverview": "Workspace Overview",
       "repositories": "Repositories",
       "files": "Files",
       "pages": "Pages",
-      "noResults": "No results found"
+      "askGroup": "Ask",
+      "askWithQuery": "Ask repowise: “{query}”",
+      "askEmpty": "Ask repowise…",
+      "goTo": "Go to — {repo}",
+      "noResults": "No results found.",
+      "hintNavigate": "↑↓ navigate",
+      "hintSelect": "↵ select",
+      "hintClose": "esc close"
     }
   },
   "nav": {
