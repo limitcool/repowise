@@ -235,6 +235,25 @@ jobs:
       - name: Test ui
         run: npm run test --workspace @repowise-dev/ui
 
+      # ICU compile gate: a malformed plural or stray brace in any catalog
+      # fails the build here instead of throwing on the page that renders it.
+      - name: Check message catalogs compile (ICU)
+        run: npm run i18n:icu --workspace packages/web
+
+      # Usage gate: a key a `t("...")` call asks for that `en.json` does not
+      # define renders the raw key path (or throws MISSING_MESSAGE), and key
+      # parity cannot see it — it compares key sets, not call sites. Structural
+      # error, so it fails the build.
+      - name: Check every used message key resolves
+        run: npm run i18n:usage --workspace packages/web
+
+      # Catalog freshness only warns: English is the source of truth, so a key
+      # a locale has not reached yet still renders English at runtime. The step
+      # must not fail the build (the script itself exits 0 either way).
+      - name: Report catalog key gaps (warn only)
+        run: npm run i18n:check --workspace packages/web
+        continue-on-error: true
+
       - name: Type check claude-mod
         run: npm run type-check --workspace @repowise-dev/claude-mod
 
