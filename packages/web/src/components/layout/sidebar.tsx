@@ -27,6 +27,7 @@ import { ThemeToggle } from "@repowise-dev/ui/shared/theme-toggle";
 import { AddRepoDialog } from "@/components/repos/add-repo-dialog";
 import { VersionFooter } from "./version-footer";
 import { FeedbackButton } from "./feedback-button";
+import { LanguageSwitcher } from "./language-switcher";
 import type { RepoResponse, WorkspaceResponse } from "@/lib/api/types";
 
 interface SidebarProps {
@@ -455,6 +456,7 @@ export function Sidebar({
           version were unreachable without expanding first. */}
       {isIconOnly ? (
         <div className="flex flex-col items-center gap-1 border-t border-[var(--color-border-default)] py-1.5">
+          <LanguageSwitcher compact />
           <ThemeToggle compact />
         </div>
       ) : (
@@ -466,7 +468,8 @@ export function Sidebar({
           <div className="flex items-center justify-between gap-2">
             <VersionFooter />
             <div className="flex items-center gap-1">
-                  <ThemeToggle compact />
+              <LanguageSwitcher compact />
+              <ThemeToggle compact />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 import { DEFAULT_LOCALE, LOCALE_COOKIE, resolveLocale, type Locale } from "./config";
 import { withFallback } from "./fallback";
 import en from "../../messages/en.json";
+import zhCN from "../../messages/zh-CN.json";
 
 /**
  * next-intl request config — the no-prefix (cookie) strategy.
@@ -23,8 +24,9 @@ import en from "../../messages/en.json";
  * not traced into the standalone bundle, so the JSON would be missing in a
  * production container.
  */
-const MESSAGES: Record<string, Record<string, unknown>> = {
+const MESSAGES: Record<Locale, Record<string, unknown>> = {
   en,
+  "zh-CN": zhCN,
 };
 
 export default getRequestConfig(async ({ requestLocale }) => {

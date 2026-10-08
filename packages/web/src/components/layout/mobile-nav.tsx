@@ -19,6 +19,7 @@ import { Separator } from "@repowise-dev/ui/ui/separator";
 import { AddRepoDialog } from "@/components/repos/add-repo-dialog";
 import { VersionFooter } from "./version-footer";
 import { FeedbackButton } from "./feedback-button";
+import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "@repowise-dev/ui/shared/theme-toggle";
 import { cn } from "@/lib/utils/cn";
 import {
@@ -279,6 +280,7 @@ export function MobileNav({ repos = [], workspace }: MobileNavProps) {
             <div className="flex items-center justify-between gap-2">
               <VersionFooter />
               <div className="flex items-center gap-1">
+                <LanguageSwitcher compact />
                 <ThemeToggle compact />
               </div>
             </div>

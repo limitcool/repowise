@@ -10,7 +10,7 @@
  * Adding a language is three steps — see `packages/web/I18N.md`.
  */
 
-export const LOCALES = ["en"] as const;
+export const LOCALES = ["en", "zh-CN"] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -34,7 +34,12 @@ export function resolveLocale(value: unknown): Locale {
   return isLocale(value) ? value : DEFAULT_LOCALE;
 }
 
-/** Endonym labels, in each language's own script. Not translated. */
+/**
+ * Endonym labels, in the language's own script. Deliberately NOT translated:
+ * a reader looking for their own language must recognise it in the switcher,
+ * and "Chinese" is less useful to them than "中文".
+ */
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
+  "zh-CN": "中文",
 };
